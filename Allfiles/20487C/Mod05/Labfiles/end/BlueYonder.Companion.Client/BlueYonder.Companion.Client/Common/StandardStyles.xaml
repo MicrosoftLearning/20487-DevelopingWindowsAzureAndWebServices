@@ -2036,16 +2036,16 @@
         <Setter Property="Content" Value="$"/>
     </Style>
 
-    <Style x:Key="PrintReceiptAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="PrintReceiptAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Print Receipt" x:Uid="AppBarPrintReceipt"/>
-        <Setter Property="Content" Value="&#x4DC0;"/>
-    </Style>
-
     <Style x:Key="PrintBoardingPassAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="PrintBoardingPassReceiptAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Print Boarding Pass" x:Uid="AppBarPrintBoardingPass"/>
         <Setter Property="Content" Value="&#x2708;"/>
+    </Style>
+
+    <Style x:Key="PrintReceiptAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PrintReceiptAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Print Receipt" x:Uid="AppBarPrintReceipt"/>
+        <Setter Property="Content" Value="&#x4DC0;"/>
     </Style>
 
     <Style x:Key="LoginAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -2058,6 +2058,24 @@
         <Setter Property="AutomationProperties.AutomationId" Value="LogoutAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Logout" x:Uid="AppBarLogout"/>
         <Setter Property="Content" Value="&#xE112;"/>
+    </Style>
+
+    <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="SearchAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="About" x:Uid="AppBarSearch"/>
+        <Setter Property="Content" Value="&#xE11B;"/>
+    </Style>
+
+    <Style x:Key="OptionsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="SearchAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Options" x:Uid="AppBarSearch"/>
+        <Setter Property="Content" Value="&#xE115;"/>
+    </Style>
+
+    <Style x:Key="TravelerInfoAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="SearchAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Traveler Info" x:Uid="AppBarSearch"/>
+        <Setter Property="Content" Value="&#xE136;"/>
     </Style>
 
     <Style x:Key="CustomSearchAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -2078,38 +2096,82 @@
         <Setter Property="Content" Value="&#xE158;"/>
     </Style>
 
-    <Style x:Key="CustomUploadAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="UploadAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Upload Media" x:Uid="AppBarUploadMedia"/>
+    <Style x:Key="CustomUploadPublicAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="UploadPublicAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Upload Item to Public Storage" x:Uid="AppBarUploadPublicMedia"/>
         <Setter Property="Content" Value="&#xE11C;"/>
     </Style>
 
-    <Style x:Key="CustomDownloadAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="DownloadAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Download Selected Item" x:Uid="AppBarDownloadMedia"/>
-        <Setter Property="Content" Value="&#xE118;"/>
+    <Style x:Key="CustomUploadPrivateAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="UploadPrivateAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Upload Item to Private Storage" x:Uid="AppBarUploadPrivateMedia"/>
+        <Setter Property="Content" Value="&#xE11C;"/>
     </Style>
 
-    <DataTemplate x:Key="VideoTemplate">
-        <MediaElement Source="{Binding Path}" RealTimePlayback="True" />
+    <Style x:Key="CustomAddFilesFromDiskAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="AddFilesFromDiskAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Add Files from Disk" x:Uid="AppBarAddFilesFromDisk"/>
+        <Setter Property="Content" Value="&#xE1A5;"/>
+    </Style>
+
+    <DataTemplate x:Key="ImagePreviewTemplate">
+        <Image Source="{Binding Image}" />
     </DataTemplate>
 
-    <DataTemplate x:Key="ImageTemplate">
-        <Image Source="{Binding Path}" />
+    <DataTemplate x:Key="VideoPreviewTemplate">
+        <MediaElement Source="{Binding Path}" RealTimePlayback="True" AutoPlay="True" IsLooping="True" />
     </DataTemplate>
 
-    <DataTemplate x:Key="LocalVideoTemplate">
-        <Grid>
-            <MediaElement Source="{Binding Path}" RealTimePlayback="True" />
-            <Image Source="ms-appx:///Assets/BlueYonderGraphics/Button-Favorite-icon.png" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        </Grid>
+    <DataTemplate x:Key="RemoteImageThumbnailTemplate">
+        <Border BorderBrush="Orange" BorderThickness="2">
+            <Grid>
+                <Image Source="{Binding Image}" Stretch="Uniform" VerticalAlignment="Center" Height="150" />
+                <Image Source="ms-appx:///Assets/BlueYonderGraphics/RemoteFileIcon.png" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,3" />
+            </Grid>
+        </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="LocalImageTemplate">
-        <Grid>
-            <Image Source="{Binding Path}" />
-            <Image Source="ms-appx:///Assets/BlueYonderGraphics/Button-Favorite-icon.png" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        </Grid>
+    <DataTemplate x:Key="RemoteVideoThumbnailTemplate">
+        <Border BorderBrush="Orange" BorderThickness="2">
+            <Grid>
+                <MediaElement Source="{Binding Path}" RealTimePlayback="False" AutoPlay="False" IsMuted="True" VerticalAlignment="Center" Height="150" />
+                <Image Source="ms-appx:///Assets/BlueYonderGraphics/RemoteFileIcon.png" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,3" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LocalImageThumbnailTemplate">
+        <Border BorderBrush="Blue" BorderThickness="2">
+            <Grid>
+                <Image Source="{Binding Image}" Stretch="Uniform" VerticalAlignment="Center" Height="150" />
+                <Image Source="ms-appx:///Assets/BlueYonderGraphics/LocalFileIcon.png" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,3" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LocalVideoThumbnailTemplate">
+        <Border BorderBrush="Blue" BorderThickness="2">
+            <Grid>
+                <MediaElement Source="{Binding Path}" RealTimePlayback="False" AutoPlay="False" IsMuted="True" VerticalAlignment="Center" Height="150" />
+                <Image Source="ms-appx:///Assets/BlueYonderGraphics/LocalFileIcon.png" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,3" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CurrentDestinationImageTemplate">
+        <Border BorderBrush="Transparent" BorderThickness="2">
+            <Grid>
+                <Image Source="{Binding Image}" Stretch="Uniform" VerticalAlignment="Stretch" Width="220" Height="220" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CurrentDestinationVideoTemplate">
+        <Border BorderBrush="Transparent" BorderThickness="2">
+            <Grid>
+                <MediaElement Source="{Binding Path}" RealTimePlayback="False" AutoPlay="False" IsMuted="True" VerticalAlignment="Stretch" Width="220" Height="220" />
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <Style x:Key="CustomTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
@@ -2196,11 +2258,11 @@
         </Grid>
     </DataTemplate>
 
-    <Style x:Key="SnappedBlueYondertListViewItemContainerStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
+    <Style x:Key="SnappedBlueYonderListViewItemContainerStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
             
     </Style>
 
-    <Style x:Key="BlueYondertListViewItemContainerStyle" TargetType="ListViewItem">
+    <Style x:Key="BlueYonderListViewItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
         <Setter Property="Background" Value="Transparent"/>

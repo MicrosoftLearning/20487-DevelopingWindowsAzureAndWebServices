@@ -508,7 +508,7 @@
             <Grid Margin="0,20,0,0">
                 <ContentControl ContentTemplate="{StaticResource CustomFlightTemplate}" VerticalAlignment="Top" Margin="120,0,10,0" />
             </Grid>
-            <StackPanel Grid.Column="1">
+            <StackPanel x:Name="detailsContainer" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Trip Details" Style="{StaticResource CurrentTripTitleStyle}" Foreground="{StaticResource BlueYonderTextHeadersBrush}"/>
                 </StackPanel>
@@ -569,7 +569,15 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Image Grid.ColumnSpan="2" Canvas.ZIndex="-1"  Stretch="Uniform" Height="250" Source="../Assets/BlueYonderGraphics/PurchaseScreenBGImage.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10"/>
+            <Image
+                Grid.ColumnSpan="2"
+                Stretch="Uniform"
+                Height="250"
+                Source="../Assets/BlueYonderGraphics/PurchaseScreenBGImage.png"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="0,0,10,10"
+                Canvas.ZIndex="-1" />
         </Grid>
         <VisualStateManager.VisualStateGroups>
 

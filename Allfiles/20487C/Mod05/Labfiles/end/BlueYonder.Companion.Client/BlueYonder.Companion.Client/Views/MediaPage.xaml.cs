@@ -58,16 +58,9 @@ namespace BlueYonder.Companion.Client.Views
         {
         }
 
-        private void imagesList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            imagePreview.SelectedItem = e.ClickedItem;
-        }
-
         private void imagePreview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = imagePreview.SelectedItem;
-            imagesList.SelectedItem = item;
-            imagesList.ScrollIntoView(item);
+            imagesList.ScrollIntoView(imagePreview.SelectedItem);
         }
     }
 }

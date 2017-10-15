@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BlueYonder.Companion.Shared;
 using Newtonsoft.Json;
-using NotificationsExtensions.TileContent;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -11,31 +10,29 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.System.Threading;
 using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace BlueYonder.Companion.Tasks
 {
-    //Module 10 - Background Tasks
-    //The student will be able to create and consume background tasks.
     public sealed class WeatherUpdateTask : IBackgroundTask
     {
-        private static readonly ApplicationDataContainer _settings = ApplicationData.Current.LocalSettings;
-
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var deferral = taskInstance.GetDeferral();
+            BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
 
-            var weather = await GetWeatherAsync();
+            WeatherForecast weather = await GetWeatherAsync();
             if (weather != null)
             {
                 var condition = weather.Condition.ToString();
-                var celcius = weather.TemperatureCelcius.ToString();
+                var celsius = weather.TemperatureCelsius.ToString();
                 var fahrenheit = weather.TemperatureFahrenheit.ToString();
 
-                _settings.Values["weather.condition"] = condition;
-                _settings.Values["weather.celcius"] = celcius;
-                _settings.Values["weather.fahrenheit"] = fahrenheit;
+                ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+                settings.Values["weather.condition"] = condition;
+                settings.Values["weather.celsius"] = celsius;
+                settings.Values["weather.fahrenheit"] = fahrenheit;
 
-                UpdateTile(condition, celcius, fahrenheit);
+                UpdateTile(condition, celsius, fahrenheit);
             }
 
             deferral.Complete();
@@ -44,9 +41,9 @@ namespace BlueYonder.Companion.Tasks
         private async Task<WeatherForecast> GetWeatherAsync()
         {
             int locationId;
-            int.TryParse(_settings.Values["locationId"].ToString(), out locationId);
+            int.TryParse(GetSetting("locationId"), out locationId);
             DateTime departure;
-            DateTime.TryParse(_settings.Values["departure"].ToString(), out departure);
+            DateTime.TryParse(GetSetting("departure"), out departure);
 
             var uri = new Uri(string.Format(Addresses.GetWeatherUri, locationId, departure));
             var responseContent = string.Empty;
@@ -65,26 +62,92 @@ namespace BlueYonder.Companion.Tasks
             return weather;
         }
 
-        private static void UpdateTile(string condition, string celcius, string fahrenheit)
+        private static void UpdateTile(string condition, string celsius, string fahrenheit)
         {
             var tile = TileUpdateManager.CreateTileUpdaterForApplication();
             if (tile.Setting != NotificationSetting.Enabled)
                 return;
 
-            var locationName = _settings.Values["locationName"].ToString();
+            var locationName = GetSetting("locationName");
 
-            ITileWideText01 tileContent = TileContentFactory.CreateTileWideText01();
-            tileContent.TextHeading.Text = locationName;
-            tileContent.TextBody1.Text = condition;
-            tileContent.TextBody2.Text = "Celcius: " + celcius;
-            tileContent.TextBody3.Text = "Fahrenheit: " + fahrenheit;
+            var tileContent = new TileContent()
+            {
+                Visual = new TileVisual()
+                {
+                    TileWide = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Text = locationName,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = condition,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = "Celsius: " + celsius,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = "Fahrenheit: " + fahrenheit,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                            }
+                        }
+                    },
 
-            ITileSquareBlock squareTileContent = TileContentFactory.CreateTileSquareBlock();
-            squareTileContent.TextBlock.Text = celcius;
-            squareTileContent.TextSubBlock.Text = locationName;
-            tileContent.SquareContent = squareTileContent;
+                    TileLarge = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Text = locationName,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = condition,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = "Celsius: " + celsius,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                                new AdaptiveText()
+                                {
+                                    Text = "Fahrenheit: " + fahrenheit,
+                                    HintStyle = AdaptiveTextStyle.Subtitle
+                                },
+                            }
+                        }
+                    },
+                    Branding = TileBranding.Logo
+                }
+            };
+            //ITileWideText01 tileContent = TileContentFactory.CreateTileWideText01();
+            //tileContent.TextHeading.Text = locationName;
+            //tileContent.TextBody1.Text = condition;
+            //tileContent.TextBody2.Text = "Celsius: " + celsius;
+            //tileContent.TextBody3.Text = "Fahrenheit: " + fahrenheit;
 
-            tileContent.Branding = TileBranding.Logo;
+            //ITileSquareBlock squareTileContent = TileContentFactory.CreateTileSquareBlock();
+            //squareTileContent.TextBlock.Text = celsius;
+            //squareTileContent.TextSubBlock.Text = locationName;
+            //tileContent.SquareContent = squareTileContent;
+
+            //tileContent.Branding = TileBranding.Logo;
 
             TileNotification tileNotification = new TileNotification(tileContent.GetXml());
             TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
@@ -104,6 +167,13 @@ namespace BlueYonder.Companion.Tasks
                 Debug.WriteLine("Deserialize->{0}", ex.Message);
                 return null;
             }
+        }
+
+        private static string GetSetting(string key)
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            var value = settings.Values[key];
+            return value == null ? null : value.ToString();
         }
     }
 }

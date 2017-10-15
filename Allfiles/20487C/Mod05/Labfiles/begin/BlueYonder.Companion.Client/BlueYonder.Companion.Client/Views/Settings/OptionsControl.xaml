@@ -10,10 +10,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Style="{StaticResource CustomSettingsPageStyle}">
+    <Grid Style="{StaticResource CustomSettingsPageStyle}"> 
         <StackPanel Margin="20">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource CustomSettingsBackButtonStyle}" />
                 <TextBlock Style="{StaticResource HeaderTextStyle}"  x:Uid="Options">Options</TextBlock>
             </StackPanel>
 
@@ -21,12 +20,34 @@
                 <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Uid="Language" Text="Language:" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" >
-                <ComboBox x:Name="LanguageOverrideComboBox" SelectedValuePath="LanguageTag" DisplayMemberPath="DisplayName"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="300" />
+                <ComboBox
+                    x:Name="LanguageOverrideComboBox"
+                    ItemsSource="{Binding LanguageItems}"
+                    SelectedItem="{Binding SelectedLanguageItem, Mode=TwoWay}"
+                    SelectedValuePath="LanguageTag"
+                    DisplayMemberPath="DisplayName"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Height="34"
+                    Width="300" />
             </StackPanel>
 
             <StackPanel Margin="0,20,0,0" x:Name="purchaseStack">
-                <HyperlinkButton Style="{StaticResource CustomHyperLinkButtonStyle}" IsEnabled="{Binding IsFull, Converter={StaticResource BooleanNegationConverter}}" Click="PurchaseApp_Click" x:Uid="PurchaseAppButton" Content="Purchase the app" />
-                <HyperlinkButton Style="{StaticResource CustomHyperLinkButtonStyle}" IsEnabled="{Binding IsMediaEnabled, Converter={StaticResource BooleanNegationConverter}}" Click="PurchaseMediaFunctionality_Click" x:Uid="PurchaseMediaFunctionalityButton" Content="Purchase media functionality" />
+
+                <!-- TODO: Module 12: Exercise 1: Task 3.3: Add a command to purchase the app -->
+                <HyperlinkButton
+                    x:Uid="PurchaseAppButton"
+                    Command="{Binding PurchaseAppCommand}"
+                    Style="{StaticResource CustomHyperLinkButtonStyle}"
+                    Content="Purchase the app" />
+
+                <!-- TODO: Module 12: Exercise 2: Task 1.4: Add a command to purchase the media feature -->
+                 <HyperlinkButton
+                    x:Uid="PurchaseMediaFeatureButton"
+                    Command="{Binding PurchaseMediaFeatureCommand}"
+                    Style="{StaticResource CustomHyperLinkButtonStyle}"
+                    Content="Purchase media functionality" />
+
             </StackPanel>
         </StackPanel>
     </Grid>

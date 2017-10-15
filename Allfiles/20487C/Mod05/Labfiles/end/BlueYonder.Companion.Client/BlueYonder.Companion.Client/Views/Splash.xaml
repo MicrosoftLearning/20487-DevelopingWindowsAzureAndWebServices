@@ -8,14 +8,19 @@
     mc:Ignorable="d">
 
     <Canvas Style="{StaticResource LayoutRootStyle}" Background="#548dcd">
-        <StackPanel x:Name="SplashPanel">
-            <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/BlueYonderGraphics/Splash_620X300.png" Stretch="Fill"/>
+        <StackPanel x:Name="splashPanel">
+            <Image
+                x:Name="extendedSplashImage"
+                Source="ms-appx:///Assets/BlueYonderGraphics/Splash_620X300.png"
+                Stretch="Fill" />
 
-            <ProgressRing x:Name="ProgressRing" Foreground="White" 
-                        HorizontalAlignment="Center" IsActive="True" 
-                        MaxHeight="50" MinHeight="50" MaxWidth="50" 
-                        MinWidth="50">
-            </ProgressRing>
+            <ProgressRing
+                x:Name="progressRing"
+                Foreground="White" 
+                HorizontalAlignment="Center"
+                Width="50"
+                Height="50"
+                IsActive="True" />
         </StackPanel>
     </Canvas>
 </Page>

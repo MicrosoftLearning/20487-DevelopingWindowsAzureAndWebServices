@@ -1,5 +1,5 @@
 ﻿using BlueYonder.Companion.Client.DataModel;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BlueYonder.Companion.Client.Helpers
 {

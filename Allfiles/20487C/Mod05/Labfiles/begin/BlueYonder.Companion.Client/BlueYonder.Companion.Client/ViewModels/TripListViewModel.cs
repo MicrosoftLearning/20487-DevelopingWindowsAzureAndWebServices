@@ -22,24 +22,31 @@ namespace BlueYonder.Companion.Client.ViewModels
 {
     public class TripListViewModel : ViewModel
     {
-        private readonly DataManager _data;
-
         public DelegateCommand LoginCommand { get; set; }
-        public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand LogoutCommand { get; set; }
+
+        private const string CurrentTripMediaFolder = "ms-appdata:///temp/CurrentMedia";
+
+        private readonly DataManager _data;
 
         private ObservableCollection<TripCategory> _tripCategories;
         public ObservableCollection<TripCategory> TripCategories
         {
             get { return this._tripCategories; }
-            set { this.SetProperty(ref this._tripCategories, value); }
+            private set { this.SetProperty(ref this._tripCategories, value); }
         }
 
         private Reservation _currentTrip;
         public Reservation CurrentTrip
         {
             get { return this._currentTrip; }
-            set { this.SetProperty(ref this._currentTrip, value); }
+            set
+            {
+                if (this.SetProperty(ref this._currentTrip, value))
+                {
+                    FillCurrentTripMediaItems();
+                }
+            }
         }
 
         private bool _working;
@@ -94,14 +101,31 @@ namespace BlueYonder.Companion.Client.ViewModels
         private bool _forceRefresh;
         public bool ForceRefresh
         {
-            get { return _forceRefresh; }
+            get { return this._forceRefresh; }
             set { this.SetProperty(ref this._forceRefresh, value); }
+        }
+
+        private ICollection<MediaItem> _currentDestinationImages;
+        public ICollection<MediaItem> CurrentDestinationImages
+        {
+            get { return this._currentDestinationImages; }
+            private set { this.SetProperty(ref this._currentDestinationImages, value); }
+        }
+
+       
+        private bool _isTrialLicense;
+        public bool IsTrialLicense
+        {
+            get { return this._isTrialLicense; }
+            set { this.SetProperty(ref this._isTrialLicense, value); }
         }
 
         public TripListViewModel()
         {
-            this._tripCategories = new ObservableCollection<TripCategory>();
             this._data = new DataManager();
+
+            this.TripCategories = new ObservableCollection<TripCategory>();
+            this.CurrentDestinationImages = new ObservableCollection<MediaItem>();
 
             this.TravelerInfo = new TravelerInfoViewModel();
 
@@ -109,10 +133,10 @@ namespace BlueYonder.Companion.Client.ViewModels
             IsLogoutCommandVisible = false;
             IsTripDataVisible = false;
             IsGlanceVisible = false;
-
-            SearchCommand = new DelegateCommand(ShowSearch);
             LoginCommand = new DelegateCommand(Login);
             LogoutCommand = new DelegateCommand(Logout);
+            // TODO: Module 12: Exercise 1: Task 2.5: Initialize the IsTrialLicense property
+            IsTrialLicense = LicenseManager.Instance.IsTrialLicense;
         }
 
         public override async void Initialize(Frame frame)
@@ -120,6 +144,12 @@ namespace BlueYonder.Companion.Client.ViewModels
             base.Initialize(frame);
 
             TravelerInfo.Initialize(frame);
+
+            //Initialize the storage folder and TransferManager for the public images of the current trip
+            StorageFolder tempRoot = ApplicationData.Current.TemporaryFolder;
+            _tempMediaFolder = await tempRoot.CreateFolderAsync("CurrentMedia", CreationCollisionOption.OpenIfExists);
+            _transferManager = new TransferManager();
+            EmptyTempFolder();
 
             var isLoggedIn = UserAuth.Instance.IsLoggedIn;
 
@@ -129,6 +159,9 @@ namespace BlueYonder.Companion.Client.ViewModels
 
             await LoadTrips(isLoggedIn);
             await InitializeWeather(CurrentTrip);
+
+            // TODO: Module 12: Exercise 1: Task 2.5: Subscribe to the LicenseManager.LicenseDataUpdated event
+            LicenseManager.Instance.LicenseDataUpdated += LicenseManager_LicenseDataUpdated;
         }
 
         private void InitializeCurrentTrip(bool isLoggedIn)
@@ -148,6 +181,9 @@ namespace BlueYonder.Companion.Client.ViewModels
             base.Uninitialize();
 
             UninitializeWeather();
+
+            // TODO: Module 12: Exercise 1: Task 2.5: Unsubscribe from the LicenseManager.LicenseDataUpdated event
+            LicenseManager.Instance.LicenseDataUpdated -= LicenseManager_LicenseDataUpdated;
         }
 
         private async Task LoadTrips(bool isLoggedIn)
@@ -173,11 +209,6 @@ namespace BlueYonder.Companion.Client.ViewModels
             Working = true;
             TripCategories = await ReservationDataFetcher.Instance.GetCategoriesAsync(forceRefresh);
             Working = false;
-        }
-
-        private void ShowSearch(object parameter)
-        {
-            SearchPane.GetForCurrentView().Show();
         }
 
         private async void Login(object parameter)
@@ -228,23 +259,21 @@ namespace BlueYonder.Companion.Client.ViewModels
             {
                 args.CheckResult();
 
-                var settings = ApplicationData.Current.LocalSettings;
-
                 WeatherCondition condition;
-                Enum.TryParse(settings.Values["weather.condition"].ToString(), out condition);
+                Enum.TryParse(GetSetting("weather.condition"), out condition);
 
-                double celcius;
-                double.TryParse(settings.Values["weather.celcius"].ToString(), out celcius);
+                double celsius;
+                double.TryParse(GetSetting("weather.celsius"), out celsius);
 
                 double fahrenheit;
-                double.TryParse(settings.Values["weather.fahrenheit"].ToString(), out fahrenheit);
+                double.TryParse(GetSetting("weather.fahrenheit"), out fahrenheit);
 
                 CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     Weather = new WeatherForecast()
                     {
                         Condition = condition,
-                        TemperatureCelcius = celcius,
+                        TemperatureCelsius = celsius,
                         TemperatureFahrenheit = fahrenheit
                     };
                 });
@@ -253,6 +282,52 @@ namespace BlueYonder.Companion.Client.ViewModels
             {
                 new MessageDialog(exc.Message).ShowAsync();
             }
+        }
+
+        private static string GetSetting(string key)
+        {
+            var settings = ApplicationData.Current.LocalSettings;
+            var value = settings.Values[key];
+            return value == null ? null : value.ToString();
+        }
+
+        private StorageFolder _tempMediaFolder;
+        private TransferManager _transferManager;
+
+        private async void FillCurrentTripMediaItems()
+        {
+            if (CurrentTrip == null)
+            {
+                CurrentDestinationImages.Clear();
+                return;
+            }
+
+            var locationId = CurrentTrip.DepartureFlight.FlightInfo.Flight.Destination.LocationId;
+            var files = await _data.GetAzureStorageFilesByLocation(locationId, 5);
+            foreach (var fileMetadata in files)
+            {
+                StorageFile destinationFile = await _tempMediaFolder.CreateFileAsync(fileMetadata.FileName, CreationCollisionOption.ReplaceExisting);
+
+                await _transferManager.DownloadAsync(fileMetadata.Uri, destinationFile);
+
+                var mediaItem = new MediaItem(FolderType.Temp, CurrentTripMediaFolder, fileMetadata.FileName);
+                CurrentDestinationImages.Add(mediaItem);
+            }
+        }
+
+        private async void EmptyTempFolder()
+        {
+            var files = await _tempMediaFolder.GetFilesAsync();
+            foreach (var file in files)
+            {
+                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            }
+        }
+
+        // TODO: Module 12: Exercise 1: Task 2.5: Handle the LicenseDataUpdated event
+        private void LicenseManager_LicenseDataUpdated(object sender, EventArgs e)
+        {
+            IsTrialLicense = LicenseManager.Instance.IsTrialLicense;
         }
     }
 }

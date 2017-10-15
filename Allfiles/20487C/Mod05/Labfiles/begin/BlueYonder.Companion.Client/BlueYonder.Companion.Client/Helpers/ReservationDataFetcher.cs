@@ -27,9 +27,9 @@ namespace BlueYonder.Companion.Client.Helpers
             _reservations = new ObservableCollection<Reservation>();
             _trips = new ObservableCollection<TripCategory>();
 
-            _currentTrips = new TripCategory(Accessories.resourceLoader.GetString("CurrentTrip"), CategoryType.CurrentTrip);
-            _upcomingTrips = new TripCategory(Accessories.resourceLoader.GetString("UpcomingTrips"), CategoryType.UpcomingTrips);
-            _historicTrips = new TripCategory(Accessories.resourceLoader.GetString("HistoricTrips"), CategoryType.HistoricTrips);
+            _currentTrips = new TripCategory(ResourceHelper.ResourceLoader.GetString("CurrentTrip"), CategoryType.CurrentTrip);
+            _upcomingTrips = new TripCategory(ResourceHelper.ResourceLoader.GetString("UpcomingTrips"), CategoryType.UpcomingTrips);
+            _historicTrips = new TripCategory(ResourceHelper.ResourceLoader.GetString("HistoricTrips"), CategoryType.HistoricTrips);
 
             this._trips.Add(_currentTrips);
             this._trips.Add(_upcomingTrips);

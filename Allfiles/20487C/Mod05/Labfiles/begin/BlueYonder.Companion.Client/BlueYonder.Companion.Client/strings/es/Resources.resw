@@ -118,43 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>sobre</value>
-  </data>
-  <data name="AboutDescriptionLabel.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nibh magna, aliquam id facilisis non, fermentum et metus. Donec at convallis metus. Sed bibendum varius orci in fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc cursus, risus ac ornare interdum, ante velit ultricies quam, at euismod mi magna quis risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam tortor dui, auctor sit amet consequat eu, lobortis at nisl. Proin ipsum neque, scelerisque ut accumsan vel, pharetra nec ante. Maecenas in volutpat odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis sit amet sapien ac nunc tincidunt mollis. Donec vitae est orci, ac tristique mi. Nulla faucibus vehicula elit non imperdiet. Proin turpis odio, tincidunt ut rutrum id, lobortis nec magna. Quisque ornare ante et felis dictum euismod.</value>
+    <value>Acerca</value>
   </data>
   <data name="AboutLabel.Text" xml:space="preserve">
-    <value>sobre</value>
+    <value>Acerca</value>
   </data>
   <data name="AppBarCancelTrip.Value" xml:space="preserve">
     <value>Cancelar viaje</value>
   </data>
   <data name="AppBarCheckIn.Value" xml:space="preserve">
-    <value>facturar</value>
+    <value>Hacer Check-In</value>
+  </data>
+  <data name="AboutDescriptionLabel.Text" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nibh magna, aliquam id facilisis non, fermentum et metus. Donec at convallis metus. Sed bibendum varius orci in fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc cursus, risus ac ornare interdum, ante velit ultricies quam, at euismod mi magna quis risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam tortor dui, auctor sit amet consequat eu, lobortis at nisl. Proin ipsum neque, scelerisque ut accumsan vel, pharetra nec ante. Maecenas in volutpat odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis sit amet sapien ac nunc tincidunt mollis. Donec vitae est orci, ac tristique mi. Nulla faucibus vehicula elit non imperdiet. Proin turpis odio, tincidunt ut rutrum id, lobortis nec magna. Quisque ornare ante et felis dictum euismod.</value>
   </data>
   <data name="AppBarLogin.Value" xml:space="preserve">
-    <value>[LOG IN]</value>
+    <value>Identificarse</value>
   </data>
   <data name="AppBarLogout.Value" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
   <data name="AppBarMedia.Value" xml:space="preserve">
-    <value>medios de comunicación</value>
+    <value>Media</value>
   </data>
   <data name="AppBarPrintBoardingPass.Value" xml:space="preserve">
     <value>Imprimir Tarjeta de Embarque</value>
   </data>
   <data name="AppBarPrintReceipt.Value" xml:space="preserve">
-    <value>impresión en el recibo</value>
+    <value>Imprimir Recibo</value>
   </data>
   <data name="AppBarPurchase.Value" xml:space="preserve">
-    <value>comprar</value>
+    <value>Comprar</value>
   </data>
   <data name="AppBarSearch.Value" xml:space="preserve">
     <value>Buscar</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nibh magna, aliquam id facilisis non, fermentum et metus. Donec at convallis metus. Sed bibendum varius orci in fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc cursus, risus ac ornare interdum, ante velit ultricies quam, at euismod mi magna quis risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam tortor dui, auctor sit amet consequat eu, lobortis at nisl. Proin ipsum neque, scelerisque ut accumsan vel, pharetra nec ante. Maecenas in volutpat odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis sit amet sapien ac nunc tincidunt mollis. Donec vitae est orci, ac tristique mi. Nulla faucibus vehicula elit non imperdiet. Proin turpis odio, tincidunt ut rutrum id, lobortis nec magna. Quisque ornare ante et felis dictum euismod.</value>
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur nisl quis justo venenatis adipiscing. Aenean non metus odio, vel tristique ante. Fusce accumsan sem nec neque sollicitudin ultrices. In eget lorem quis libero pulvinar ultricies. In ornare, libero sit amet lobortis tempus, mi dolor sagittis diam, quis faucibus nisl mauris sed ipsum. Suspendisse augue augue, rhoncus bibendum feugiat vitae, semper ut risus. Phasellus eleifend scelerisque nibh a ornare. Morbi diam eros, feugiat ut bibendum a, porttitor sit amet dolor. Vivamus et venenatis magna. Nunc sed dui vitae purus vulputate molestie. Nulla id est sapien, ut luctus neque. Nunc in elementum nulla. Suspendisse rutrum, tortor eget iaculis semper, nisl nunc ornare sem, sed congue turpis sapien sed ligula. Praesent sit amet justo eget arcu euismod feugiat. Donec fringilla interdum elit in volutpat. Aenean suscipit, nibh ut scelerisque molestie, eros urna tristique odio, bibendum vulputate quam sapien in elit.</value>
   </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>Blue Yonder Companion</value>
@@ -163,37 +163,37 @@
     <value>Companion</value>
   </data>
   <data name="Arrival" xml:space="preserve">
-    <value>llegada</value>
+    <value>Llegada</value>
   </data>
   <data name="CancelButton.Content" xml:space="preserve">
-    <value>cancelar</value>
+    <value>Cancelar</value>
   </data>
   <data name="CancelTripDialog" xml:space="preserve">
-    <value>¿Está seguro que desea eliminar esta reserva?</value>
+    <value>¿Está seguro que desea eliminar esta reservación?</value>
   </data>
   <data name="ChangeLanguageMessage" xml:space="preserve">
-    <value>Reinicie la aplicación para .....</value>
+    <value>Reinicie la aplicación para hacer efecto el cambio de idioma.</value>
   </data>
   <data name="CheckInButton.Content" xml:space="preserve">
-    <value>facturar</value>
+    <value>Check-in</value>
   </data>
   <data name="CurrentTrip" xml:space="preserve">
-    <value>trayecto actual</value>
+    <value>Trayecto actual</value>
   </data>
   <data name="Depart" xml:space="preserve">
-    <value>salir</value>
+    <value>Partir</value>
   </data>
   <data name="Departing" xml:space="preserve">
     <value>Fecha de Salida</value>
   </data>
   <data name="DepartLabel.Text" xml:space="preserve">
-    <value>salir</value>
+    <value>Partir</value>
   </data>
   <data name="Departure" xml:space="preserve">
-    <value>salida</value>
+    <value>Despegue</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>duración</value>
+    <value>Duración</value>
   </data>
   <data name="EmailLabel.Text" xml:space="preserve">
     <value>Email:</value>
@@ -202,7 +202,7 @@
     <value>Nombre:</value>
   </data>
   <data name="FlightPurchaseCompleted" xml:space="preserve">
-    <value>Compra Vuelo Completed!</value>
+    <value>Proceso de compra termino satisfactoriamente!</value>
   </data>
   <data name="FlightPurchaseMissingFields" xml:space="preserve">
     <value>Por favor, asegúrese de rellenar todos los campos obligatorios antes de la compra</value>
@@ -214,7 +214,7 @@
     <value>¡Hola</value>
   </data>
   <data name="HistoricTrips" xml:space="preserve">
-    <value>Viajes históricos</value>
+    <value>Historia de Viajes</value>
   </data>
   <data name="HomeAddressLabel.Text" xml:space="preserve">
     <value>Domicilio:</value>
@@ -229,7 +229,7 @@
     <value>Apellido:</value>
   </data>
   <data name="LoginButton.Content" xml:space="preserve">
-    <value>iniciar la sesión</value>
+    <value>Iniciar Sesión</value>
   </data>
   <data name="LoginErrorNoInternetConnection" xml:space="preserve">
     <value>No se puede acceder a su cuenta sin conexión a Internet, compruebe su conexión y vuelva a intentarlo</value>
@@ -238,13 +238,13 @@
     <value>para ver la información de viajes</value>
   </data>
   <data name="LoginProgressMessage" xml:space="preserve">
-    <value>Comprobación cuenta de usuario ...</value>
+    <value>Iniciando Sesión...</value>
   </data>
   <data name="MobilePhoneLabel.Text" xml:space="preserve">
     <value>Teléfono móvil:</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>no</value>
+    <value>No</value>
   </data>
   <data name="NoInternetConnection" xml:space="preserve">
     <value>Conexión a Internet no está disponible</value>
@@ -256,40 +256,40 @@
     <value>Pasaporte:</value>
   </data>
   <data name="PleaseLabel.Text" xml:space="preserve">
-    <value>complacer</value>
+    <value>Por favor</value>
   </data>
   <data name="PurchaseButton.Content" xml:space="preserve">
-    <value>comprar</value>
+    <value>Comprar</value>
   </data>
   <data name="PurchaseLabel" xml:space="preserve">
-    <value>comprar</value>
+    <value>Comprar</value>
   </data>
   <data name="PurchaseTripButton.Content" xml:space="preserve">
     <value>Compra este viaje</value>
   </data>
   <data name="ResetButton.Content" xml:space="preserve">
-    <value>reajustar</value>
+    <value>Reset</value>
   </data>
   <data name="Return" xml:space="preserve">
-    <value>volver</value>
+    <value>Volver</value>
   </data>
   <data name="Returning" xml:space="preserve">
     <value>Volviendo</value>
   </data>
   <data name="ReturnLabel.Text" xml:space="preserve">
-    <value>volver</value>
+    <value>Volver</value>
   </data>
   <data name="RoundTripLabel.Content" xml:space="preserve">
-    <value>ida y vuelta</value>
+    <value>Ida y vuelta</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
-    <value>ahorrar</value>
+    <value>Grabar</value>
   </data>
   <data name="SearchResult" xml:space="preserve">
     <value>Resultado de busqueda de:</value>
   </data>
   <data name="SelectFlightToDelete" xml:space="preserve">
-    <value>Por favor, seleccione reserva de vuelo para eliminar</value>
+    <value>Por favor, seleccione el viaje que quiere eliminar</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>a</value>
@@ -298,25 +298,25 @@
     <value>a</value>
   </data>
   <data name="TravelerInfo" xml:space="preserve">
-    <value>Info viajero</value>
+    <value>Infomación del viajero</value>
   </data>
   <data name="TravelerInformationSaved" xml:space="preserve">
     <value>Información guardada!</value>
   </data>
   <data name="TravelerLabel.Text" xml:space="preserve">
-    <value>viajero</value>
+    <value>Viajero</value>
   </data>
   <data name="UpcomingTrips" xml:space="preserve">
     <value>Próximos Viajes</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>sí</value>
+    <value>Sí</value>
   </data>
   <data name="ShowLoginNotSupported" xml:space="preserve">
     <value>Esta función no está disponible todavía, por favor asegúrese de que tiene conexión a Internet y reiniciar la aplicación</value>
   </data>
   <data name="SourceToDestination" xml:space="preserve">
-    <value>{0} to {1}</value>
+    <value>Desde {0} hacia {1}</value>
   </data>
   <data name="City_4" xml:space="preserve">
     <value>New York</value>
@@ -325,7 +325,7 @@
     <value>Paris</value>
   </data>
   <data name="City_3" xml:space="preserve">
-    <value>Rome</value>
+    <value>Roma</value>
   </data>
   <data name="City_1" xml:space="preserve">
     <value>Seattle</value>
@@ -334,16 +334,16 @@
     <value>EUR</value>
   </data>
   <data name="SourceToDestinationAtDate" xml:space="preserve">
-    <value>"{0} to {1} at {2}"</value>
+    <value>Desde {0} hacia {1} a las {2}</value>
   </data>
   <data name="PurchaseFareClassUpgradeLink.Text" xml:space="preserve">
-    <value>Purchase fare class upgrade</value>
+    <value>Comprar mejora a Fare class</value>
   </data>
   <data name="PurchaseFastSecurityScreeningLink.Text" xml:space="preserve">
     <value>Purchase fast security screening</value>
   </data>
   <data name="PurchasePriorityBaggageHandlingLink.Text" xml:space="preserve">
-    <value>Purchase priority baggage handling</value>
+    <value>Comprar mejora aumento de equipaje</value>
   </data>
   <data name="PrintClass" xml:space="preserve">
     <value>Clase:</value>
@@ -355,28 +355,25 @@
     <value>© 2012 BlueYonder. Todos los derechos reservados.</value>
   </data>
   <data name="PrintFlightId" xml:space="preserve">
-    <value>Vuelo Id:</value>
+    <value>Numero de Vuelo:</value>
   </data>
-  <data name="PrintReceiptMissingReservation" xml:space="preserve">
-    <value>Por favor, seleccione Reserva de impresión de recibos.</value>
-  </data>
-  <data name="PrintReceiptMissingReservation1" xml:space="preserve">
-    <value>Please select Reservation for printing Receipt.</value>
+  <data name="PrintMissingReservation" xml:space="preserve">
+    <value>Por favor seleccionar el destino antes de imprimir.</value>
   </data>
   <data name="PrintReservationDate" xml:space="preserve">
-    <value>Reserva Fecha:</value>
+    <value>Fecha de Reservación :</value>
   </data>
   <data name="PrintReservationId" xml:space="preserve">
-    <value>Reserva Id:</value>
+    <value>Numero de Reservación :</value>
   </data>
   <data name="PrintReservationTitle" xml:space="preserve">
-    <value>Bajo Boarding - Id Reserva:</value>
+    <value>Bajo Boarding - Numero de Reservación:</value>
   </data>
   <data name="PrintReturnFlight" xml:space="preserve">
-    <value>vuelo de regreso</value>
+    <value>Vuelo de regreso</value>
   </data>
   <data name="PrintStatus" xml:space="preserve">
-    <value>Estado:</value>
+    <value>Status:</value>
   </data>
   <data name="CaptureVideo" xml:space="preserve">
     <value>Capturar vídeo</value>
@@ -391,69 +388,78 @@
     <value>Tomar foto</value>
   </data>
   <data name="BrightnessLabel.Text" xml:space="preserve">
-    <value>brillo</value>
+    <value>Brillo</value>
   </data>
   <data name="ContrastLabel.Text" xml:space="preserve">
-    <value>contraste</value>
+    <value>Contraste</value>
   </data>
   <data name="TakePictureButton.Content" xml:space="preserve">
-    <value>Tomar foto</value>
+    <value>Tomar Foto</value>
   </data>
   <data name="AppBarCancelUpload.Value" xml:space="preserve">
-    <value>Cancelar Subir</value>
+    <value>Cancelar Subida de Archivo</value>
   </data>
   <data name="AppBarDownloadMedia.Value" xml:space="preserve">
-    <value>Descargar elementos seleccionados</value>
+    <value>Descargar Elementos Seleccionados</value>
   </data>
-  <data name="AppBarUploadMedia.Value" xml:space="preserve">
-    <value>Sube medios</value>
+  <data name="AppBarUploadPublicMedia.Value" xml:space="preserve">
+    <value>Sube objetos a Almacenamiento Publico</value>
+  </data>
+  <data name="AppBarUploadPrivateMedia.Value" xml:space="preserve">
+    <value>Sube objetos a Almacenamiento Privado</value>
   </data>
   <data name="MediaItemAlreadyOnLocalDrive" xml:space="preserve">
-    <value>El elemento multimedia ya existe en la carpeta local.</value>
+    <value>Este elemento multimedia ya existe en la carpeta local.</value>
   </data>
-  <data name="SelectMediaFileForUpload" xml:space="preserve">
+  <data name="MediaItemHasAlreadyBeenUploaded" xml:space="preserve">
+    <value>Este elemento ya fue subido con anterioridad.</value>
+  </data>
+  <data name="SelectMediaFileToUpload" xml:space="preserve">
     <value>Por favor, seleccione elemento multimedia para descargar.</value>
   </data>
   <data name="PurchaseAppButton.Content" xml:space="preserve">
-    <value>Compre la aplicación</value>
+    <value>Compre la Aplicación</value>
   </data>
   <data name="BoughtMessage" xml:space="preserve">
-    <value>Compraste </value>
+    <value>Has Comprado</value>
   </data>
   <data name="TrialMessage" xml:space="preserve">
     <value>Sólo tiene una licencia de prueba. Se necesita una licencia completa para hacer una compra en-app.</value>
   </data>
   <data name="UnableToBuy" xml:space="preserve">
-    <value>No se puede comprar </value>
+    <value>No se puede comprar</value>
   </data>
   <data name="YouAlreadyOwn" xml:space="preserve">
-    <value>Ya tienes </value>
+    <value>Tu tienes </value>
   </data>
   <data name="AppBarPurchaseFastSecurity.Value" xml:space="preserve">
     <value>Compra de control de seguridad rápido</value>
   </data>
   <data name="AppBarPurchaseFirstClass.Value" xml:space="preserve">
-    <value>Adquiera la Actualización de primera clase</value>
+    <value>Adquiera una mejora a Primera Clase</value>
   </data>
   <data name="AppBarPurchasePriorityBaggage.Value" xml:space="preserve">
-    <value>Compra manejo prioritario de equipaje</value>
+    <value>Comprar manejo prioritario de equipaje</value>
   </data>
   <data name="PurchaseFastSecurity.Content" xml:space="preserve">
-    <value>Compra de control de seguridad rápido</value>
+    <value>Comprar de control de seguridad rápido</value>
   </data>
   <data name="PurchaseFirstClassButton.Content" xml:space="preserve">
-    <value>Adquiera la Actualización de primera clase</value>
+    <value>Adquiera una mejora de primera clase</value>
   </data>
   <data name="PurchasePriorityBaggageButton.Content" xml:space="preserve">
     <value>Compra manejo prioritario de equipaje</value>
   </data>
-  <data name="PurchaseMediaFunctionalityButton.Content" xml:space="preserve">
+  <data name="PurchaseMediaFeatureButton.Content" xml:space="preserve">
     <value>Compra funcionalidad multimedia</value>
   </data>
   <data name="PleasePurchaseMessage" xml:space="preserve">
-    <value>Esta es una versión de prueba. Por favor, compre la app para eliminar este mensaje en el futuro.</value>
+    <value>Esta es una versión de prueba. Por favor, compre la aplicación para eliminar este mensaje en el futuro.</value>
   </data>
   <data name="Account" xml:space="preserve">
-    <value>cuenta</value>
+    <value>Cuenta</value>
+  </data>
+  <data name="AppBarAddFilesFromDisk.Value" xml:space="preserve">
+    <value>Add Files from Disk</value>
   </data>
 </root>

@@ -208,7 +208,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="BlueYondertGridViewItemContainerStyle" TargetType="GridViewItem">
+        <Style x:Key="BlueYonderGridViewItemContainerStyle" TargetType="GridViewItem">
             <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -479,14 +479,13 @@
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel x:Name="RightCommands" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button HorizontalAlignment="Left" Style="{StaticResource CustomUploadPublicAppBarButtonStyle}" Command="{Binding UploadPublicMediaCommand}"/>
+                    <Button HorizontalAlignment="Left" Style="{StaticResource CustomUploadPrivateAppBarButtonStyle}" Command="{Binding UploadPrivateMediaCommand}"/>
                 </StackPanel>
                 <StackPanel x:Name="LeftCommands" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
                     <Button HorizontalAlignment="Left" Style="{StaticResource CustomVideoAppBarButtonStyle}" Command="{Binding CaptureVideoCommand}"/>
                     <Button HorizontalAlignment="Left" Style="{StaticResource CustomPicturesAppBarButtonStyle}" Command="{Binding CaptureImageCommand}"/>
-
-                    <Button HorizontalAlignment="Left" Visibility="{Binding Idle, Converter={StaticResource BoolNegationToVisibility}}" Style="{StaticResource CancelUploadAppBarButtonStyle}" Command="{Binding CancelUploadCommand}"/>
-                    <Button HorizontalAlignment="Left" Visibility="{Binding Idle, Converter={StaticResource BoolToVisibility}}" Style="{StaticResource CustomUploadAppBarButtonStyle}" Command="{Binding UploadCommand}"/>
-                    <Button HorizontalAlignment="Left" Style="{StaticResource CustomDownloadAppBarButtonStyle}" Command="{Binding DownloadCommand}"/>
+                    <Button HorizontalAlignment="Left" Style="{StaticResource CustomAddFilesFromDiskAppBarButtonStyle}" Command="{Binding AddFilesFromDiskCommand}"/>
                 </StackPanel>
             </Grid>
         </AppBar>
@@ -522,18 +521,29 @@
                 <TextBlock Text="{Binding Message}" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1">
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-                <Grid Height="300">
+                <Grid Grid.Row="0">
                     <Image Source="ms-appx:///Assets/BlueYonderGraphics/MediaPageBGImage.png" Stretch="Uniform" VerticalAlignment="Stretch" Margin="0,0,0,10"/>
 
                     <Border Visibility="{Binding PreviewEnabled, Converter={StaticResource BoolToVisibility}}">
                         <CaptureElement x:Name="previewElement"/>
                     </Border>
 
-                    <FlipView x:Name="imagePreview" ItemsSource="{Binding MediaFiles}" SelectionChanged="imagePreview_SelectionChanged"
+                    <FlipView
+                        x:Name="imagePreview"
+                        ItemsSource="{Binding MediaItems}"
+                        SelectionChanged="imagePreview_SelectionChanged"
+                        SelectedItem="{Binding SelectedMediaItem, Mode=TwoWay}"
                         Visibility="{Binding PreviewEnabled, Converter={StaticResource BoolNegationToVisibility}}"
-                        ItemTemplateSelector="{StaticResource MediaTypeTemplateSelector}">
+                        ItemTemplateSelector="{StaticResource ImagePreviewTemplateSelector}">
                     </FlipView>
                 </Grid>
 
@@ -560,31 +570,30 @@
                     </StackPanel>
                 </StackPanel>
 
-                <GridView x:Name="imagesList" Grid.Row="2"
+                <ProgressBar
+                    Grid.Row="2"
+                    IsIndeterminate="True"
+                    Visibility="{Binding IsProgressVisible, Converter={StaticResource BoolToVisibility}}" />
+
+                <GridView x:Name="imagesList" Grid.Row="3"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     SelectionMode="Single"
-                    IsItemClickEnabled="True"
-                    ItemContainerStyle="{StaticResource BlueYondertGridViewItemContainerStyle}"
-                    ItemClick="imagesList_ItemClick"
+                    ItemContainerStyle="{StaticResource BlueYonderGridViewItemContainerStyle}"
                     VerticalAlignment="Top"
                     VerticalContentAlignment="Top"
-                    ItemsSource="{Binding MediaFiles}" IsActiveView="True"
-                    Visibility="{Binding PreviewEnabled, Converter={StaticResource BoolNegationToVisibility}}">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <Image Height="150" VerticalAlignment="Center" Source="{Binding Converter={StaticResource VideoImagePreviewConverter}}" Stretch="Uniform"/>
-                            </Border>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
+                    ItemsSource="{Binding MediaItems}"
+                    SelectedItem="{Binding SelectedMediaItem, Mode=TwoWay}"
+                    IsActiveView="True"
+                    Visibility="{Binding PreviewEnabled, Converter={StaticResource BoolNegationToVisibility}}"
+                    ItemTemplateSelector="{StaticResource ImageThumbnailTemplateSelector}">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>
-            </StackPanel>
+            </Grid>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

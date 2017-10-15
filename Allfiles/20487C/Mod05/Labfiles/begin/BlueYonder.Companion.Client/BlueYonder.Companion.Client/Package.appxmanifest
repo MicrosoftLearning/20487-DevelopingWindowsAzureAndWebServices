@@ -1,42 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="fff446e9-4e89-4d26-a3ae-def1bab41ac1" Publisher="CN=Shai" Version="1.0.0.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="MSLearningDeveloperTraini.BlueYonderCompanion" Publisher="CN=ofirm" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="33074c09-708b-4dcb-bef6-8f586b490122" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Blue Yonder Companion</DisplayName>
-    <PublisherDisplayName>Blue Yonder</PublisherDisplayName>
+    <PublisherDisplayName>MSLearning Developer Training</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-  <Prerequisites>
-    <OSMinVersion>6.2.1</OSMinVersion>
-    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
-  </Prerequisites>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="BlueYonder.Companion.Client.App">
-      <VisualElements DisplayName="ms-resource:AppDisplayName" Logo="Assets\BlueYonderGraphics\BlueYonderLogo150x150.png" SmallLogo="Assets\BlueYonderGraphics\BlueYonderSmallLogo30X30.png" Description="ms-resource:AppDescription" ForegroundText="light" BackgroundColor="#548dcd" ToastCapable="false">
-        <LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BlueYonderGraphics\badgelogo-sdk.png" />
-        <DefaultTile WideLogo="Assets\BlueYonderGraphics\BlueYonderWideLogo310X150.png" ShortName="ms-resource:AppShortName" ShowName="allLogos" />
-        <SplashScreen Image="Assets\BlueYonderGraphics\Splash_620X300.png" BackgroundColor="#548dcd" />
-      </VisualElements>
+      <uap:VisualElements DisplayName="BlueYonder.Companion.Client" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="BlueYonder.Companion.Client" BackgroundColor="transparent">
+        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BlueYonderGraphics\badgelogo-sdk.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.search" />
-        <Extension Category="windows.cameraSettings" />
         <Extension Category="windows.backgroundTasks" EntryPoint="BlueYonder.Companion.Tasks.WeatherUpdateTask">
           <BackgroundTasks>
-            <Task Type="timer" />
             <Task Type="systemEvent" />
+            <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.cameraSettings" />
+        <uap:Extension Category="windows.search" />
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="picturesLibrary" />
     <Capability Name="internetClient" />
+    <uap:Capability Name="picturesLibrary" />
     <DeviceCapability Name="location" />
-    <DeviceCapability Name="webcam" />
     <DeviceCapability Name="microphone" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

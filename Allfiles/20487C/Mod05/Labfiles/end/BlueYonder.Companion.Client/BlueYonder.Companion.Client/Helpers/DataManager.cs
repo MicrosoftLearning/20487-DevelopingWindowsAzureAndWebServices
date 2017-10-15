@@ -1,7 +1,6 @@
 ﻿using BlueYonder.Companion.Client.DataModel;
 using BlueYonder.Companion.Client.DataTransferObjects;
 using BlueYonder.Companion.Shared;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,16 +11,12 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using File = BlueYonder.Companion.Client.DataModel.File;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
     public class DataManager
     {
-        /// <summary>
-        /// Make sure Internet Connection avilable and perform HttpClient request.
-        /// </summary>
-        /// <param name="uri">Request Target</param>
-        /// <returns>Json Response</returns>
         private async Task<Response> GetAsync(Uri uri)
         {
             var client = CreateHttpClient();
@@ -82,9 +77,9 @@ namespace BlueYonder.Companion.Client.Helpers
         }
 
         /// <summary>
-        /// Get list of Locations from Server
+        /// Get the list of locations from the server
         /// </summary>
-        /// <returns>List of locations</returns>
+        /// <returns></returns>
         public async Task<IEnumerable<Location>> GetLocationsAsync(string query)
         {
             string uri;
@@ -158,7 +153,7 @@ namespace BlueYonder.Companion.Client.Helpers
         }
 
         /// <summary>
-        /// Get reservation by id
+        /// Get a reservation by id
         /// </summary>
         /// <param name="reservationId">Reservation Id</param>
         /// <returns></returns>
@@ -171,7 +166,7 @@ namespace BlueYonder.Companion.Client.Helpers
         }
 
         /// <summary>
-        /// Get list of flights
+        /// Get a filtered list of flights
         /// </summary>
         /// <param name="source">Source Country Id</param>
         /// <param name="destination">Destination Country Id</param>
@@ -214,7 +209,7 @@ namespace BlueYonder.Companion.Client.Helpers
         }
 
         /// <summary>
-        /// Get Weather Forecast by id
+        /// Get the weather forecast for a specified location
         /// </summary>
         /// <param name="locationId">Location Id</param>
         /// <param name="date">Weather Forecast Date</param>
@@ -231,9 +226,9 @@ namespace BlueYonder.Companion.Client.Helpers
             return new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation().Id.ToString();
         }
 
-        public async Task<bool> RegisterNotificationsChannel(string channelUri)
+        public async Task<bool> RegisterNotificationsChannelAsync(string channelUri)
         {
-            var dto = new RegisterNotificationsRequestDTO
+            var dto = new RegisterNotificationsRequestDTO()
             {
                 DeviceID = GetHardwareId(),
                 DeviceURI = channelUri
@@ -244,13 +239,39 @@ namespace BlueYonder.Companion.Client.Helpers
             return response.Success;
         }
 
-        public async Task<IEnumerable<Uri>> GetAzureStorageFileUris(int reservationId)
+        public async Task<IEnumerable<File>> GetAzureStorageFilesByTrip(int tripId)
         {
-            var uri = new Uri(string.Format(Addresses.GetFilesMetadataUri, reservationId));
+            var uri = new Uri(string.Format(Addresses.GetFilesMetadataByTripUri, tripId));
             var response = await GetAsync(uri);
-            var fileDtos = JsonSerializerHelper.Deserialize<IEnumerable<FileDTO>>(response.Content);
-            var fileUris = fileDtos.Select(fileDto => fileDto.Uri);
-            return fileUris;
+            var fileDtos = response.Success ? JsonSerializerHelper.Deserialize<IEnumerable<FileDTO>>(response.Content) : new List<FileDTO>();
+            var files = fileDtos.Select(fileDto => fileDto.ToObject());
+            return files;
+        }
+
+        public async Task<IEnumerable<File>> GetAzureStorageFilesByLocation(int locationId, int count)
+        {
+            var uri = new Uri(string.Format(Addresses.GetFilesMetadataByLocationUri, locationId, count));
+            var response = await GetAsync(uri);
+            var fileDtos = response.Success ? JsonSerializerHelper.Deserialize<IEnumerable<FileDTO>>(response.Content) : new List<FileDTO>();
+            var files = fileDtos.Select(fileDto => fileDto.ToObject());
+            return files;
+        }
+
+        public async Task<bool> CreateAzureStorageFileMetadata(Uri fileUri, string fileName, int reservationId, bool isPrivate, int travelerId, int locationId)
+        {
+            var dto = new FileDTO()
+            {
+                Uri = fileUri,
+                FileName = fileName,
+                TripId = reservationId,
+                IsPrivate = isPrivate,
+                UserId = travelerId.ToString(),
+                LocationId = locationId
+            };
+            var uri = new Uri(Addresses.CreateFileMetadataUri);
+            var json = JsonSerializerHelper.Serialize(dto);
+            var response = await PostAsync(uri, json);
+            return response.Success;
         }
     }
 }

@@ -8,9 +8,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Devices.Geolocation;
+using Windows.Graphics.Printing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using Windows.Devices.Geolocation;
 
 namespace BlueYonder.Companion.Client.ViewModels
 {
@@ -94,13 +95,6 @@ namespace BlueYonder.Companion.Client.ViewModels
             set { this.SetProperty(ref this._isPurchaseCommandVisible, value); }
         }
 
-        private bool _isMediaCommandVisible;
-        public bool IsMediaCommandVisible
-        {
-            get { return this._isMediaCommandVisible; }
-            set { this.SetProperty(ref this._isMediaCommandVisible, value); }
-        }
-
         private bool _isPinCommandVisible;
         public bool IsPinCommandVisible
         {
@@ -136,6 +130,20 @@ namespace BlueYonder.Companion.Client.ViewModels
             set { this.SetProperty(ref this._fareClassUpgradePrice, value); }
         }
 
+        private bool _isMediaCommandVisible;
+        public bool IsMediaCommandVisible
+        {
+            get { return this._isMediaCommandVisible; }
+            set { this.SetProperty(ref this._isMediaCommandVisible, value); }
+        }
+
+        private bool _isLoginCommandVisible;
+        public bool IsLoginCommandVisible
+        {
+            get { return this._isLoginCommandVisible; }
+            set { this.SetProperty(ref this._isLoginCommandVisible, value); }
+        }
+
         public int? ReservationId { get; set; }
 
         private ObservableCollection<Reservation> _reservations = new ObservableCollection<Reservation>();
@@ -152,14 +160,36 @@ namespace BlueYonder.Companion.Client.ViewModels
             set { this.SetProperty(ref this._travelerInfo, value); }
         }
 
+
+        private FlightSchedule _departureFlight;
+        public FlightSchedule DepartureFlight {
+            get => _departureFlight;
+            set => SetProperty(ref _departureFlight, value);
+        }
+
+        private FlightSchedule _returnFlight;
+
+        public FlightSchedule ReturnFlight
+        {
+            get => _returnFlight;
+            set => SetProperty(ref _returnFlight, value);
+        }
+
+        private string _confirmationCode;
+        public string ConfirmationCode
+        {
+            get => _confirmationCode;
+            set => SetProperty(ref _confirmationCode, value);
+        }
+
         private void UpdateSelectedReservationDetails(Reservation reservation)
         {
             if (reservation != null)
             {
                 var flight = reservation.DepartureFlight.FlightInfo.Flight;
-                var localizedSource = Accessories.resourceLoader.GetString("City_" + flight.Source.LocationId);
-                var localizedDestination = Accessories.resourceLoader.GetString("City_" + flight.Destination.LocationId);
-                var formatString = Accessories.resourceLoader.GetString("SourceToDestination");
+                var localizedSource = ResourceHelper.ResourceLoader.GetString("City_" + flight.Source.LocationId);
+                var localizedDestination = ResourceHelper.ResourceLoader.GetString("City_" + flight.Destination.LocationId);
+                var formatString = ResourceHelper.ResourceLoader.GetString("SourceToDestination");
                 SelectedReservationCaption = string.Format(formatString, localizedSource, localizedDestination);
 
                 SelectedReservationFlightNumber = flight.FlightNumber;
@@ -177,9 +207,9 @@ namespace BlueYonder.Companion.Client.ViewModels
             HasDepartingDate = this.SelectedReservation != null && this.SelectedReservation.DepartureFlight != null;
             HasReturningDate = this.SelectedReservation != null && this.SelectedReservation.ReturnFlight != null;
             IsPurchaseCommandVisible = this.CategoryType == CategoryType.SearchResult && this.SelectedReservation != null;
-            IsMediaCommandVisible = this.CategoryType != CategoryType.SearchResult && this.SelectedReservation != null;
             IsPinCommandVisible = this.CategoryType != CategoryType.SearchResult && this.SelectedReservation != null;
             CanPurchaseTripAddOn = this.SelectedReservation != null && this.SelectedReservation.Type == CategoryType.CurrentTrip;
+            IsMediaCommandVisible = this.CategoryType != CategoryType.SearchResult && this.SelectedReservation != null;
         }
 
         public TripDetailViewModel()
@@ -196,15 +226,18 @@ namespace BlueYonder.Companion.Client.ViewModels
             PinCommand = new DelegateCommand(Pin);
             CancelCommand = new DelegateCommand(CancelTrip);
             CheckInCommand = new DelegateCommand(CheckIn);
-            MediaCommand = new DelegateCommand(Media);
 
-            PrintReceiptCommand = new DelegateCommand(PrintReceipt);
+            MediaCommand = new DelegateCommand(Media, CanExecuteMedia);
+
             PrintBoardingPassCommand = new DelegateCommand(PrintBoardingPass);
+            PrintReceiptCommand = new DelegateCommand(PrintReceipt);
+
+            IsLoginCommandVisible = false;
         }
 
         private static string FormatCurrency(double price)
         {
-            var currency = Accessories.resourceLoader.GetString("Currency");
+            var currency = ResourceHelper.ResourceLoader.GetString("Currency");
             var currencyFormatter = new Windows.Globalization.NumberFormatting.CurrencyFormatter(currency);
             var formattedCurrency = currencyFormatter.Format(price);
             return formattedCurrency;
@@ -223,14 +256,23 @@ namespace BlueYonder.Companion.Client.ViewModels
             {
                 LoadFlightsAsync(false);
             }
+
+            // TODO: Module 12: Exercise 2: Task 2.2 Subscribe to the LicenseDataUpdated event
+            LicenseManager.Instance.LicenseDataUpdated += LicenseManager_LicenseDataUpdated;
+            IsLoginCommandVisible = false;
         }
 
-        public void Uninitialize()
+        public override void Uninitialize()
         {
+            base.Uninitialize();
+
             if (CategoryType == CategoryType.SearchResult)
             {
                 LocationsDataFetcher.Instance.LocationsFetched -= LocationsFetched;
             }
+
+            // TODO: Module 12: Exercise 2: Task 2.2 Unsubscribe from the LicenseDataUpdated event
+            LicenseManager.Instance.LicenseDataUpdated -= LicenseManager_LicenseDataUpdated;
         }
 
         private async void LoadFlightsAsync(bool forceRefresh)
@@ -258,8 +300,9 @@ namespace BlueYonder.Companion.Client.ViewModels
             this.SearchQuery = e.QueryText;
             this.SelectedReservation = null;
 
-            //var geoposition = await GeopositionDataFetcher.Instance.GetLocationAsync();
-            var sourceLocation = LocationsDataFetcher.Instance.GetLocationByCoordinate(null);
+            var geoposition = await GeopositionDataFetcher.Instance.GetLocationAsync();
+            var geocoordinate = geoposition == null ? null : geoposition.Coordinate;
+            var sourceLocation = LocationsDataFetcher.Instance.GetLocationByCoordinate(geocoordinate);
 
             if (sourceLocation != null)
             {
@@ -268,6 +311,10 @@ namespace BlueYonder.Companion.Client.ViewModels
                 foreach (var destination in e.Locations)
                 {
                     var flights = await this._data.GetFlightsAsync(sourceLocation.LocationId, destination.LocationId, startDate);
+                    if (flights == null)
+                    {
+                        flights = new List<Flight>();
+                    }
 
                     foreach (var flight in flights)
                     {
@@ -303,14 +350,14 @@ namespace BlueYonder.Companion.Client.ViewModels
         {
             if (this.SelectedReservation != null)
             {
-                var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("CancelTripDialog"));
-                msg.Commands.Add(new Windows.UI.Popups.UICommand(Accessories.resourceLoader.GetString("Yes"), new Windows.UI.Popups.UICommandInvokedHandler(this.DeleteReservation)));
-                msg.Commands.Add(new Windows.UI.Popups.UICommand(Accessories.resourceLoader.GetString("No")));
+                var msg = new Windows.UI.Popups.MessageDialog(ResourceHelper.ResourceLoader.GetString("CancelTripDialog"));
+                msg.Commands.Add(new Windows.UI.Popups.UICommand(ResourceHelper.ResourceLoader.GetString("Yes"), new Windows.UI.Popups.UICommandInvokedHandler(this.DeleteReservation)));
+                msg.Commands.Add(new Windows.UI.Popups.UICommand(ResourceHelper.ResourceLoader.GetString("No")));
                 await msg.ShowAsync();
             }
             else
             {
-                var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("SelectFlightToDelete"));
+                var msg = new Windows.UI.Popups.MessageDialog(ResourceHelper.ResourceLoader.GetString("SelectFlightToDelete"));
                 await msg.ShowAsync();
             }
         }
@@ -332,36 +379,48 @@ namespace BlueYonder.Companion.Client.ViewModels
             this.Frame.Navigate(typeof(MediaPage), reservationId);
         }
 
-        public async void PrintReceipt(object parameter)
+        // TODO: Module 12: Exercise 2: Task 2.1: Implement the CanExecuteMedia method
+        private bool CanExecuteMedia(object parameter)
+        {
+            return LicenseManager.Instance.IsMediaFeatureEnabled;
+        }
+
+        private async void PrintBoardingPass(object parameter)
         {
             if (this.SelectedReservation != null)
             {
-                using (var print = new PrinterJob(this.Page, PrintJobType.MultiPage, this.SelectedReservation))
+                using (new PrinterJob(Page, PrintJobType.BoardingPass, this.SelectedReservation))
                 {
-                    await Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync();
+                    await PrintManager.ShowPrintUIAsync();
                 }
             }
             else
             {
-                var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("PrintReceiptMissingReservation"));
+                var msg = new MessageDialog(ResourceHelper.ResourceLoader.GetString("PrintMissingReservation"));
                 await msg.ShowAsync();
             }
         }
 
-        public async void PrintBoardingPass(object parameter)
+        private async void PrintReceipt(object parameter)
         {
             if (this.SelectedReservation != null)
             {
-                using (var print = new PrinterJob(this.Page, PrintJobType.SinglePage, this.SelectedReservation))
+                using (new PrinterJob(Page, PrintJobType.Receipt, this.SelectedReservation))
                 {
-                    await Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync();
+                    await PrintManager.ShowPrintUIAsync();
                 }
             }
             else
             {
-                var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("PrintReceiptMissingReservation"));
+                var msg = new MessageDialog(ResourceHelper.ResourceLoader.GetString("PrintMissingReservation"));
                 await msg.ShowAsync();
             }
+        }
+
+        // TODO: Module 12: Exercise 2: Task 2.2: Handle the LicenseDataUpdated event and update the state of the MediaCommand
+        private void LicenseManager_LicenseDataUpdated(object sender, EventArgs e)
+        {
+            MediaCommand.RaiseCanExecuteChanged();
         }
     }
 }

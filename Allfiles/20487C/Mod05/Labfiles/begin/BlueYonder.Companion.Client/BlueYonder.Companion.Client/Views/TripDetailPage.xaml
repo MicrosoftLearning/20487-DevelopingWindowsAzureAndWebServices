@@ -53,10 +53,8 @@
                         HorizontalAlignment="Left"
                         Style="{StaticResource PinAppBarButtonStyle}"
                         Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates" />
-
-                    <Button x:Name="buttonMedia" Command="{Binding MediaCommand}"
+                    <Button Command="{Binding MediaCommand}"
                         Visibility="{Binding IsMediaCommandVisible, Converter={StaticResource BoolToVisibility}}"
-                        IsEnabled="{Binding License.IsMediaEnabled}"
                         HorizontalAlignment="Left"
                         Style="{StaticResource MediaAppBarButtonStyle}"
                         Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates" />
@@ -109,7 +107,7 @@
             IsItemClickEnabled="True"
             SelectedItem="{Binding SelectedReservation, Mode=TwoWay}"
             ItemClick="ItemView_ItemClick"
-            ItemContainerStyle="{StaticResource BlueYondertListViewItemContainerStyle}">
+            ItemContainerStyle="{StaticResource BlueYonderListViewItemContainerStyle}">
 
             <ListView.ItemTemplate>
                 <DataTemplate>

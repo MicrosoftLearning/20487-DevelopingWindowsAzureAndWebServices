@@ -1,74 +1,46 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BlueYonder.Companion.Client.DataTransferObjects;
 using Windows.Networking.PushNotifications;
 using Windows.Security.Cryptography;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
-    //WNS
-    public class WnsManager
+    class WnsManager
     {
-        private readonly Settings _settings = new Settings(SettingsType.Local);
-
-        public async Task<bool> Register()
+        private async Task<bool> SendChannelToServer(string channelUri)
         {
-            // Check if a unique channel uri exists in local settings
-            var channelUri = _settings.Get(Constants.WnsChannelUri);
-            if (!NetworkManager.IsNetworkAvailable && string.IsNullOrEmpty(channelUri))
-            {
-                return false;
-            }
-
-            // Register for push notifications
-            var uniqueChannelUri = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
-            if (!string.IsNullOrEmpty(channelUri))
-            {
-                var currentChannel = DecryptChannelUri(channelUri);
-                // If the new channel uri is the same as the stored channel uri, we don't need to resend it
-                if (currentChannel == uniqueChannelUri.Uri)
-                {
-                    return true;
-                }
-            }
-
-            if (!NetworkManager.IsNetworkAvailable)
-            {
-                return false;
-            }
-
-            // Encypt the new unique channel uri
-            var newChannelUri = EncryptChannelUri(uniqueChannelUri.Uri);
-            // Send the encrypted channel uri to the server
-            var success =  await SendChannelToServer(newChannelUri);
-            if (success)
-            {
-                // Store the encrypted channel uri in the application settings
-                _settings.Add(Constants.WnsChannelUri, newChannelUri);
-            }
-            return success;
+            var dataManager = new DataManager();
+            return await dataManager.RegisterNotificationsChannelAsync(channelUri);
         }
 
-        private string EncryptChannelUri(string uri)
+        private string EncodeChannelUri(string uri)
         {
             var channelBuffer = CryptographicBuffer.ConvertStringToBinary(uri, BinaryStringEncoding.Utf8);
             return CryptographicBuffer.EncodeToBase64String(channelBuffer);
         }
 
-        private string DecryptChannelUri(string uri)
+        public async Task<bool> Register()
         {
-            var channelBuffer = CryptographicBuffer.DecodeFromBase64String(uri);
-            return CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, channelBuffer);
-        }
+            if (!NetworkManager.IsNetworkAvailable)
+            {
+                return false;
+            }
 
-        private async Task<bool> SendChannelToServer(string channelUri)
-        {
-            var dataManager = new DataManager();
-            return await dataManager.RegisterNotificationsChannel(channelUri);
+            // Create a push notifications channel
+            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+            var hub = new NotificationHub("BlueYonderLab07", "Endpoint=sb://blueyonderlab07.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=XaKpA3bqArhXoh+4PCz0yXAb2BuAA1jCuvp1NH+5zu0=");
+            var result = await hub.RegisterNativeAsync(channel.Uri);
+            return result.RegistrationId != null;
+            // Encode the channel uri
+            //var encodedChannelUri = EncodeChannelUri(channel.Uri);
+
+            // Send the encoded channel uri to the server
+            //var success = await SendChannelToServer(encodedChannelUri);
+            //return success;
         }
     }
 }

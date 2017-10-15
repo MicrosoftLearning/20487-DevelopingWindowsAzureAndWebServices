@@ -34,7 +34,9 @@ namespace BlueYonder.Companion.Client.Helpers
                 Uri logo = null;// GetPreviewImage(item, false);
                 Uri logoWide = null;// GetPreviewImage(item, true);
                 var flight = reservation.DepartureFlight.FlightInfo.Flight;
-                var title = string.Format(Accessories.resourceLoader.GetString("SourceToDestinationAtDate"), flight.Source.City, flight.Destination.City, reservation.ReservationDate);
+                var localizedSource = ResourceHelper.ResourceLoader.GetString("City_" + flight.Source.LocationId);
+                var localizedDesintation = ResourceHelper.ResourceLoader.GetString("City_" + flight.Destination.LocationId);
+                var title = string.Format(ResourceHelper.ResourceLoader.GetString("SourceToDestinationAtDate"), localizedSource, localizedDesintation, reservation.ReservationDate);
                 SecondaryTile secondaryTile = new SecondaryTile(title, title, title, title, TileOptions.None, logo, logoWide);
 
                 Rect pinButtonRect = GetElementRect((FrameworkElement)sender);

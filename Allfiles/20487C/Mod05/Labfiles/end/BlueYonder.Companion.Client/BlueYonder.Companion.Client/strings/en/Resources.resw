@@ -120,9 +120,6 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="AboutDescriptionLabel.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur nisl quis justo venenatis adipiscing. Aenean non metus odio, vel tristique ante. Fusce accumsan sem nec neque sollicitudin ultrices. In eget lorem quis libero pulvinar ultricies. In ornare, libero sit amet lobortis tempus, mi dolor sagittis diam, quis faucibus nisl mauris sed ipsum. Suspendisse augue augue, rhoncus bibendum feugiat vitae, semper ut risus. Phasellus eleifend scelerisque nibh a ornare. Morbi diam eros, feugiat ut bibendum a, porttitor sit amet dolor. Vivamus et venenatis magna. Nunc sed dui vitae purus vulputate molestie. Nulla id est sapien, ut luctus neque. Nunc in elementum nulla. Suspendisse rutrum, tortor eget iaculis semper, nisl nunc ornare sem, sed congue turpis sapien sed ligula. Praesent sit amet justo eget arcu euismod feugiat. Donec fringilla interdum elit in volutpat. Aenean suscipit, nibh ut scelerisque molestie, eros urna tristique odio, bibendum vulputate quam sapien in elit.</value>
-  </data>
   <data name="AboutLabel.Text" xml:space="preserve">
     <value>About</value>
   </data>
@@ -131,6 +128,9 @@
   </data>
   <data name="AppBarCheckIn.Value" xml:space="preserve">
     <value>Check In</value>
+  </data>
+  <data name="AboutDescriptionLabel.Text" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur nisl quis justo venenatis adipiscing. Aenean non metus odio, vel tristique ante. Fusce accumsan sem nec neque sollicitudin ultrices. In eget lorem quis libero pulvinar ultricies. In ornare, libero sit amet lobortis tempus, mi dolor sagittis diam, quis faucibus nisl mauris sed ipsum. Suspendisse augue augue, rhoncus bibendum feugiat vitae, semper ut risus. Phasellus eleifend scelerisque nibh a ornare. Morbi diam eros, feugiat ut bibendum a, porttitor sit amet dolor. Vivamus et venenatis magna. Nunc sed dui vitae purus vulputate molestie. Nulla id est sapien, ut luctus neque. Nunc in elementum nulla. Suspendisse rutrum, tortor eget iaculis semper, nisl nunc ornare sem, sed congue turpis sapien sed ligula. Praesent sit amet justo eget arcu euismod feugiat. Donec fringilla interdum elit in volutpat. Aenean suscipit, nibh ut scelerisque molestie, eros urna tristique odio, bibendum vulputate quam sapien in elit.</value>
   </data>
   <data name="AppBarLogin.Value" xml:space="preserve">
     <value>Login</value>
@@ -206,6 +206,9 @@
   </data>
   <data name="FlightPurchaseMissingFields" xml:space="preserve">
     <value>Please fill all the mandatory fields.</value>
+  </data>
+  <data name="FrequentFlyerMiles" xml:space="preserve">
+    <value>You have {0} frequent flyer miles!</value>
   </data>
   <data name="HelloLabel.Text" xml:space="preserve">
     <value>Hello</value>
@@ -331,7 +334,7 @@
     <value>USD</value>
   </data>
   <data name="SourceToDestinationAtDate" xml:space="preserve">
-    <value>"{0} to {1} at {2}"</value>
+    <value>{0} to {1} at {2}</value>
   </data>
   <data name="PurchaseFareClassUpgradeLink.Text" xml:space="preserve">
     <value>Purchase fare class upgrade</value>
@@ -354,8 +357,8 @@
   <data name="PrintFlightId" xml:space="preserve">
     <value>Flight Id:</value>
   </data>
-  <data name="PrintReceiptMissingReservation" xml:space="preserve">
-    <value>Please select Reservation for printing Receipt.</value>
+  <data name="PrintMissingReservation" xml:space="preserve">
+    <value>Please select a trip before trying to print.</value>
   </data>
   <data name="PrintReservationDate" xml:space="preserve">
     <value>Reservation Date:</value>
@@ -399,13 +402,19 @@
   <data name="AppBarDownloadMedia.Value" xml:space="preserve">
     <value>Download Selected Item</value>
   </data>
-  <data name="AppBarUploadMedia.Value" xml:space="preserve">
-    <value>Upload Media</value>
+  <data name="AppBarUploadPublicMedia.Value" xml:space="preserve">
+    <value>Upload Item to Public Storage</value>
+  </data>
+  <data name="AppBarUploadPrivateMedia.Value" xml:space="preserve">
+    <value>Upload Item to Private Storage</value>
   </data>
   <data name="MediaItemAlreadyOnLocalDrive" xml:space="preserve">
     <value>This media item already exists in your local folder.</value>
   </data>
-  <data name="SelectMediaFileForUpload" xml:space="preserve">
+  <data name="MediaItemHasAlreadyBeenUploaded" xml:space="preserve">
+    <value>This media item has already been uploaded.</value>
+  </data>
+  <data name="SelectMediaFileToUpload" xml:space="preserve">
     <value>Please select media item to download.</value>
   </data>
   <data name="PurchaseAppButton.Content" xml:space="preserve">
@@ -441,7 +450,7 @@
   <data name="PurchasePriorityBaggageButton.Content" xml:space="preserve">
     <value>Purchase priority baggage handling</value>
   </data>
-  <data name="PurchaseMediaFunctionalityButton.Content" xml:space="preserve">
+  <data name="PurchaseMediaFeatureButton.Content" xml:space="preserve">
     <value>Purchase media functionality</value>
   </data>
   <data name="PleasePurchaseMessage" xml:space="preserve">
@@ -449,5 +458,8 @@
   </data>
   <data name="Account" xml:space="preserve">
     <value>Account</value>
+  </data>
+  <data name="AppBarAddFilesFromDisk.Value" xml:space="preserve">
+    <value>Add Files from Disk</value>
   </data>
 </root>

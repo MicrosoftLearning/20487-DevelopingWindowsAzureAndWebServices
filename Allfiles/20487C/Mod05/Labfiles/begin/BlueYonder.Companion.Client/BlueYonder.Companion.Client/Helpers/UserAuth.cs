@@ -1,46 +1,20 @@
-﻿using BlueYonder.Companion.Client.Common;
-using BlueYonder.Companion.Client.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
+using BlueYonder.Companion.Client.DataModel;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
-    public class UserAuth : BindableBase
+    public class UserAuth
     {
         private readonly DataManager _data;
         private readonly Settings _settings;
 
-        private string _userName;
-        public string UserName
-        {
-            get { return this._userName; }
-            set { this.SetProperty(ref this._userName, value); }
-        }
-
-        private bool _isLoggedIn;
         public bool IsLoggedIn
         {
-            get { return this._isLoggedIn; }
-            set { this.SetProperty(ref this._isLoggedIn, value); }
+            get { return Traveler != null; }
         }
 
-        private bool _busy;
-        public bool Busy
-        {
-            get { return this._busy; }
-            set { this.SetProperty(ref this._busy, value); }
-        }
-
-        private Traveler _traveler;
-        public Traveler Traveler
-        {
-            get { return this._traveler; }
-            set { this.SetProperty(ref this._traveler, value); }
-        }
+        public Traveler Traveler { get; private set; }
 
         private UserAuth()
         {
@@ -50,38 +24,32 @@ namespace BlueYonder.Companion.Client.Helpers
 
         public async Task<LoginResult> Login()
         {
-            if (this.IsLoggedIn)
+            if (IsLoggedIn)
                 return new LoginResult(true);
-
-            this.Busy = true;
 
             try
             {
                 await VerifyConnectionExists();
 
-                this.IsLoggedIn = await LoadTraveler();
+                await LoadTraveler();
 
-                return new LoginResult(this.IsLoggedIn);
+                return new LoginResult(IsLoggedIn);
             }
             catch (Exception ex)
             {
                 return new LoginResult(false, ex);
             }
-            finally
-            {
-                this.Busy = false;
-            }
         }
 
         public void Logout()
         {
-            this.IsLoggedIn = false;
+            Traveler = null;
             _settings.Remove(Constants.TravelerId);
         }
 
         private async Task VerifyConnectionExists()
         {
-            var errorMessage = Accessories.resourceLoader.GetString("LoginErrorNoInternetConnection");
+            var errorMessage = ResourceHelper.ResourceLoader.GetString("LoginErrorNoInternetConnection");
 
             var isConnected = await NetworkManager.CheckInternetConnection(true, errorMessage);
 
@@ -91,19 +59,15 @@ namespace BlueYonder.Companion.Client.Helpers
             }
         }
 
-        private async Task<bool> LoadTraveler()
+        private async Task LoadTraveler()
         {
             _settings.Remove(Constants.TravelerId);
 
-            var traveler = await _data.GetTravelerAsync() ?? await _data.CreateTravelerAsync();
-            if (traveler != null)
+            Traveler = await _data.GetTravelerAsync() ?? await _data.CreateTravelerAsync();
+            if (Traveler != null)
             {
-                _settings.Add(Constants.TravelerId, traveler.TravelerId.ToString());
+                _settings.Add(Constants.TravelerId, Traveler.TravelerId.ToString());
             }
-
-            this.Traveler = traveler;
-
-            return traveler != null;
         }
 
         private static UserAuth _instance;

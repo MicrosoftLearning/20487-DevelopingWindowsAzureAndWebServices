@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlueYonder.Companion.Shared
+﻿namespace BlueYonder.Companion.Shared
 {
     public sealed class Addresses
     {
         public static string BaseUri
         {
-            get { return "http://10.10.0.10/blueyonder.companion.host/"; }
+            get { return "http://localhost:4392/"; }
         }
 
         public static string GetLocationsUri
@@ -50,7 +44,7 @@ namespace BlueYonder.Companion.Shared
 
         public static string GetReservationByIdUri
         {
-            get { return BaseUri + "Reservations/{0}"; }
+            get { return BaseUri + "Reservations/GetReservation/{0}"; }
         }
 
         public static string GetTravelerByIdentityUri
@@ -66,7 +60,12 @@ namespace BlueYonder.Companion.Shared
         public static string UpdateTravelerUri
         {
             get { return BaseUri + "Travelers/{0}"; }
-        }     
+        }
+
+        public static string GetFrequentFlyerMilesUri
+        {
+            get { return BaseUri + "FrequentFlyer/{0}"; }
+        }
 
         public static string GetWeatherUri
         {
@@ -78,9 +77,29 @@ namespace BlueYonder.Companion.Shared
             get { return BaseUri + "Notifications/Register"; }
         }
 
-        public static string GetFilesMetadataUri
+        public static string GetFilesMetadataByTripUri
         {
-            get { return BaseUri + "Files/Metadata?tripId={0}"; }
+            get { return BaseUri + "Files/TripMetadata/{0}"; }
+        }
+
+        public static string GetFilesMetadataByLocationUri
+        {
+            get { return BaseUri + "Files/LocationMetadata/{0}?count={1}"; }
+        }
+
+        public static string CreateFileMetadataUri
+        {
+            get { return BaseUri + "Files/Metadata"; }
+        }
+
+        public static string UploadPublicFileUri
+        {
+            get { return BaseUri + "Files/Public?tripId={0}"; }
+        }
+
+        public static string UploadPrivateFileUri
+        {
+            get { return BaseUri + "Files/Private?tripId={0}"; }
         }
     }
 }

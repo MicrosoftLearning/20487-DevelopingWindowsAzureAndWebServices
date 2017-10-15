@@ -402,7 +402,7 @@ namespace BlueYonder.Companion.Client.Common
         /// Implementation of IObservableMap that supports reentrancy for use as a default view
         /// model.
         /// </summary>
-        private class ObservableDictionary<K, V> : IObservableMap<K, V>
+        public class ObservableDictionary<K,V> : IObservableMap<K,V>
         {
             private class ObservableDictionaryChangedEventArgs : IMapChangedEventArgs<K>
             {

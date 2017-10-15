@@ -29,7 +29,8 @@ namespace BlueYonder.Companion.Client.Views.Settings
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            SettingsPane.Show();
+            // Not supported on UWP
+            //SettingsPane.Show();
             this.Margin = new Thickness(0, 0, -346, 0);
         }
     }

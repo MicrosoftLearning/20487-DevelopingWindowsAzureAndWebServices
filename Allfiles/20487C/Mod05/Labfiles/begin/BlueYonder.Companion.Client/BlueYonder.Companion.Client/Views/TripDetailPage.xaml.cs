@@ -53,8 +53,6 @@ namespace BlueYonder.Companion.Client.Views
 
             viewModel.Page = this.pageRoot;
 
-            this.DefaultViewModel["License"] = LicenseManager.Instance;
-
             viewModel.Initialize(this.Frame);
         }
 

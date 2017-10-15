@@ -24,7 +24,7 @@ namespace BlueYonder.Companion.Client.Helpers
             var isConnected = IsNetworkAvailable;
             if (!isConnected && displayMessage)
             {
-                var dialog = new MessageDialog(message, Accessories.resourceLoader.GetString("NoInternetConnection"));
+                var dialog = new MessageDialog(message, ResourceHelper.ResourceLoader.GetString("NoInternetConnection"));
                 await dialog.ShowAsync();
             }
             return isConnected;

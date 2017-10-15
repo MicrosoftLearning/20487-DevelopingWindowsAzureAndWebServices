@@ -44,5 +44,14 @@ namespace BlueYonder.Companion.Client.DataTransferObjects
                 Email = traveler.Email
             };
         }
+
+        public static File ToObject(this FileDTO dto)
+        {
+            return new File()
+            {
+                FileName = dto.FileName,
+                Uri = dto.Uri,
+            };
+        }
     }
 }

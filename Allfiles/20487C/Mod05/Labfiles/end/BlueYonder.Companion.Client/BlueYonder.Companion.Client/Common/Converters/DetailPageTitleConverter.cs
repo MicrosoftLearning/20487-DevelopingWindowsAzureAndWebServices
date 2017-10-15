@@ -1,10 +1,6 @@
-﻿using BlueYonder.Companion.Client.DataModel;
-using BlueYonder.Companion.Client.Helpers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using Windows.UI.Xaml.Data;
-using System.Linq;
+using BlueYonder.Companion.Client.Helpers;
 
 namespace BlueYonder.Companion.Client.Common
 {
@@ -20,10 +16,10 @@ namespace BlueYonder.Companion.Client.Common
                 var type = (CategoryType)value;
                 switch (type)
                 {
-                    case CategoryType.UpcomingTrips: return Accessories.resourceLoader.GetString("UpcomingTrips");
-                    case CategoryType.HistoricTrips: return Accessories.resourceLoader.GetString("HistoricTrips");
-                    case CategoryType.SearchResult: return Accessories.resourceLoader.GetString("SearchResult");
-                    default: return Accessories.resourceLoader.GetString("CurrentTrip");
+                    case CategoryType.UpcomingTrips: return ResourceHelper.ResourceLoader.GetString("UpcomingTrips");
+                    case CategoryType.HistoricTrips: return ResourceHelper.ResourceLoader.GetString("HistoricTrips");
+                    case CategoryType.SearchResult: return ResourceHelper.ResourceLoader.GetString("SearchResult");
+                    default: return ResourceHelper.ResourceLoader.GetString("CurrentTrip");
                 }
             }
             else

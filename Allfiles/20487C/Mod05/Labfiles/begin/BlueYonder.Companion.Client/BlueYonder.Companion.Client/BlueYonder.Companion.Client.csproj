@@ -1,92 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8CBF4113-8AF3-4A69-A351-5B55B76A2A8A}</ProjectGuid>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{39D906C0-7DCD-4AEC-8B91-683DAB191BA1}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlueYonder.Companion.Client</RootNamespace>
     <AssemblyName>BlueYonder.Companion.Client</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>BlueYonder.Companion.Client_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>ARM</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>ARM</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -96,7 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -104,34 +40,90 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <PRIResource Include="strings\es\Resources.resw" />
+    <PRIResource Include="strings\en\Resources.resw" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\CacheType.cs" />
     <Compile Include="Common\CategoryType.cs" />
     <Compile Include="Common\Converters\BooleanNegationConverter.cs" />
     <Compile Include="Common\Converters\BooleanNegationToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Common\Converters\CanCheckInFlightConverter.cs" />
     <Compile Include="Common\Converters\CanCancelFlightConverter.cs" />
-    <Compile Include="Common\Converters\FolderTypeToVisibilityConveter.cs" />
+    <Compile Include="Common\Converters\CanCheckInFlightConverter.cs" />
     <Compile Include="Common\Converters\DateTimeStringConverter.cs" />
     <Compile Include="Common\Converters\DetailPageTitleConverter.cs" />
     <Compile Include="Common\Converters\SchedulesToFirstDepartureConverter.cs" />
-    <Compile Include="Common\Converters\VideoImagePreviewConverter.cs" />
+    <Compile Include="Common\CurrentDestinationTemplateSelector.cs" />
     <Compile Include="Common\DataFetcher.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
-    <Compile Include="Common\MediaTypeTemplateSelector.cs" />
+    <Compile Include="Common\ImagePreviewTemplateSelector.cs" />
+    <Compile Include="Common\ImageThumbnailTemplateSelector.cs" />
+    <Compile Include="Common\LayoutAwarePage.cs" />
+    <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SettingsFlyout.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\ViewModel.cs" />
-    <Compile Include="Controls\ReservationDetailsControl.xaml.cs">
-      <DependentUpon>ReservationDetailsControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\ReservationDetailsControl.cs" />
+    <Compile Include="DataModel\File.cs" />
     <Compile Include="DataModel\Flight.cs" />
     <Compile Include="DataModel\FlightInfo.cs" />
     <Compile Include="DataModel\FlightSchedule.cs" />
+    <Compile Include="DataModel\LanguageItem.cs" />
     <Compile Include="DataModel\Location.cs" />
     <Compile Include="DataModel\MediaItem.cs" />
     <Compile Include="DataModel\Reservation.cs" />
@@ -144,34 +136,33 @@
     <Compile Include="DataTransferObjects\LocationDTO.cs" />
     <Compile Include="DataTransferObjects\RegisterNotificationsRequestDTO.cs" />
     <Compile Include="DataTransferObjects\TravelerDTO.cs" />
-    <Compile Include="Helpers\Accessories.cs" />
     <Compile Include="Helpers\BackgroundTaskHelper.cs" />
     <Compile Include="Helpers\Bootstrapper.cs" />
-    <Compile Include="Helpers\CacheManager.cs" />
     <Compile Include="Helpers\CacheItem.cs" />
+    <Compile Include="Helpers\CacheManager.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Helpers\LicenseManager.cs" />
-    <Compile Include="Helpers\LogInResult.cs" />
-    <Compile Include="Helpers\PrinterJob.cs" />
     <Compile Include="Helpers\DataManager.cs" />
     <Compile Include="Helpers\GeopositionDataFetcher.cs" />
     <Compile Include="Helpers\JsonSerializerHelper.cs" />
+    <Compile Include="Helpers\LicenseManager.cs" />
     <Compile Include="Helpers\LocationsDataFetcher.cs" />
-    <Compile Include="Helpers\NetworkManager.cs" />
-    <Compile Include="Helpers\ReservationDataFetcher.cs" />
-    <Compile Include="Helpers\Response.cs" />
     <Compile Include="Helpers\LocationsFetchedEventArgs.cs" />
+    <Compile Include="Helpers\LogInResult.cs" />
+    <Compile Include="Helpers\NetworkManager.cs" />
+    <Compile Include="Helpers\PrinterJob.cs" />
+    <Compile Include="Helpers\PrintJobType.cs" />
+    <Compile Include="Helpers\ReservationDataFetcher.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\Response.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\TileManager.cs" />
+    <Compile Include="Helpers\TransferManager.cs" />
     <Compile Include="Helpers\TripCategory.cs" />
     <Compile Include="Helpers\UserAuth.cs" />
     <Compile Include="Helpers\WnsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\BindableBase.cs" />
-    <Compile Include="Common\LayoutAwarePage.cs" />
-    <Compile Include="Common\RichTextColumns.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />
+    <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PurchaseViewModel.cs" />
     <Compile Include="ViewModels\TravelerInfoViewModel.cs" />
     <Compile Include="ViewModels\TripDetailViewModel.cs" />
@@ -218,35 +209,39 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Common\ReadMe.txt" />
     <None Include="BlueYonder.Companion.Client_TemporaryKey.pfx" />
-    <None Include="packages.config" />
-    <PRIResource Include="strings\es\Resources.resw" />
-    <PRIResource Include="strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\BlueYonderGraphics\badgelogo-sdk.png" />
+    <Content Include="Assets\BlueYonderGraphics\badgelogo-sdk.scale-100.png" />
+    <Content Include="Assets\BlueYonderGraphics\badgelogo-sdk.scale-200.png" />
     <Content Include="Assets\BlueYonderGraphics\BluePlaneandClouds.png" />
     <Content Include="Assets\BlueYonderGraphics\BlueYonderLogo150x150.png" />
     <Content Include="Assets\BlueYonderGraphics\BlueYonderNotificationsLogo.png" />
     <Content Include="Assets\BlueYonderGraphics\BlueYonderSmallLogo30X30.png" />
     <Content Include="Assets\BlueYonderGraphics\BlueYonderWideLogo310X150.png" />
-    <Content Include="Assets\BlueYonderGraphics\PurchaseScreenBGImage.png" />
-    <Content Include="Assets\BlueYonderGraphics\Button-Favorite-icon.png" />
     <Content Include="Assets\BlueYonderGraphics\Check-icon.png" />
     <Content Include="Assets\BlueYonderGraphics\flightIcon.png" />
+    <Content Include="Assets\BlueYonderGraphics\LocalFileIcon.png" />
     <Content Include="Assets\BlueYonderGraphics\MediaPageBGImage.png" />
-    <Content Include="Assets\BlueYonderGraphics\Splash_620X300.png" />
-    <Content Include="Assets\BlueYonderGraphics\video_icon.png" />
     <Content Include="Assets\BlueYonderGraphics\PurchaseScreenBGImage.png" />
-    <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\LightGray.png" />
-    <Content Include="Assets\MediumGray.png" />
+    <Content Include="Assets\BlueYonderGraphics\RemoteFileIcon.png" />
+    <Content Include="Assets\BlueYonderGraphics\Splash_620X300.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\LightGray.png" />
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\MediumGray.png" />
+    <Content Include="Assets\SmallLogo.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Common\ReadMe.txt" />
     <Content Include="data\license.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -262,24 +257,20 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BoardingPassPreviewPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Controls\LanguageOverrideControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ReservationDetailsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MediaPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PurchasePage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ReceiptContinuationPreviewPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -290,50 +281,61 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\AboutControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\OptionsControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\TravelerInfoControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Splash.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TripDetailPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TripListPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FrequentFlyerService">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\FrequentFlyerService.winmd</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\winrt45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlueYonder.Companion.Shared\BlueYonder.Companion.Shared.csproj">
-      <Project>{40ee204d-fdbc-4a5f-bce9-12552ceb91c3}</Project>
+      <Project>{6e1fb89d-093b-455a-a76a-6c70e27792a5}</Project>
       <Name>BlueYonder.Companion.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueYonder.Companion.Tasks\BlueYonder.Companion.Tasks.csproj">
-      <Project>{468a1f4f-ef34-4689-9091-f2cae374a0f2}</Project>
+      <Project>{f3eceba1-f808-40a8-8f80-a28dc009167b}</Project>
       <Name>BlueYonder.Companion.Tasks</Name>
     </ProjectReference>
   </ItemGroup>
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
-    <VisualStudioVersion>11.0</VisualStudioVersion>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="WindowsAzure.Messaging.Managed">
+      <Version>0.1.7.9</Version>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

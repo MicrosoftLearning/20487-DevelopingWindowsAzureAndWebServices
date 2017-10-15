@@ -22,42 +22,36 @@ namespace BlueYonder.Companion.Client.Views
     /// </summary>
     public sealed partial class Splash : Page
     {
-        internal Rect splashImageRect; // Rect to store splash screen image coordinates.
-        private SplashScreen splash; // Variable to hold the splash screen object.
+        private readonly SplashScreen splash; // Variable to hold the splash screen object
 
-        public Splash(SplashScreen splashscreen)
+        public Splash(SplashScreen splashScreen)
         {
             this.InitializeComponent();
 
+            splash = splashScreen;
+
             Window.Current.SizeChanged += Current_SizeChanged;
 
-            splash = splashscreen;
-
-            if (splash != null)
-            {
-                // Retrieve the window coordinates of the splash screen image.
-                splashImageRect = splash.ImageLocation;
-                PositionImage();
-            }
-        }
-
-        // Position the extended splash screen image in the same location as the system splash screen image.
-        void PositionImage()
-        {
-            SplashPanel.SetValue(Canvas.LeftProperty, splashImageRect.X);
-            SplashPanel.SetValue(Canvas.TopProperty, splashImageRect.Y);
-            SplashPanel.Height = splashImageRect.Height + 60;
-            SplashPanel.Width = splashImageRect.Width;
+            PositionImage();
         }
 
         void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
             // Safely update the extended splash screen image coordinates. This function will be fired in response to snapping, unsnapping, rotation, etc...
+            PositionImage();
+        }
+
+        void PositionImage()
+        {
+            // Position the extended splash screen image in the same location as the system splash screen image
             if (splash != null)
             {
-                // Update the coordinates of the splash screen image.
-                splashImageRect = splash.ImageLocation;
-                PositionImage();
+                // Retrieve the window coordinates of the splash screen image
+                var rect = splash.ImageLocation;
+                splashPanel.SetValue(Canvas.LeftProperty, rect.X);
+                splashPanel.SetValue(Canvas.TopProperty, rect.Y);
+                splashPanel.Width = rect.Width;
+                splashPanel.Height = rect.Height + 60;
             }
         }
 

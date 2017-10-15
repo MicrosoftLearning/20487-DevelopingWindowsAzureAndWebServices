@@ -1,7 +1,14 @@
-﻿using BlueYonder.Companion.Client.DataModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls.Primitives;
+using BlueYonder.Companion.Client.DataModel;
 
 // The Templated Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234235
 
@@ -12,19 +19,19 @@ namespace BlueYonder.Companion.Client.Controls
     {
         public const string PART_CheckInButton = "PART_CheckInButton";
 
-        private ButtonBase m_checkInButton;
+        private ButtonBase _checkInButton;
 
         public ReservationDetailsControl()
         {
-            DefaultStyleKey = typeof(ReservationDetailsControl);
+            this.DefaultStyleKey = typeof(ReservationDetailsControl);
         }
 
         public static readonly DependencyProperty ReservationProperty =
-            DependencyProperty.Register("Reservation", typeof(Reservation), typeof(ReservationDetailsControl), null);
+            DependencyProperty.Register("Reservation", typeof (Reservation), typeof (ReservationDetailsControl), null);
 
         public Reservation Reservation
         {
-            get { return (Reservation)GetValue(ReservationProperty); }
+            get { return (Reservation) GetValue(ReservationProperty); }
             set { SetValue(ReservationProperty, value); }
         }
 
@@ -32,13 +39,13 @@ namespace BlueYonder.Companion.Client.Controls
         {
             base.OnApplyTemplate();
 
-            if (m_checkInButton != null)
-                m_checkInButton.Click -= OnCheckInButtonClick;
+            if (_checkInButton != null)
+                _checkInButton.Click -= OnCheckInButtonClick;
 
-            m_checkInButton = (ButtonBase)GetTemplateChild(PART_CheckInButton);
+            _checkInButton = (ButtonBase) GetTemplateChild(PART_CheckInButton);
 
-            if (m_checkInButton != null)
-                m_checkInButton.Click += OnCheckInButtonClick;
+            if (_checkInButton != null)
+                _checkInButton.Click += OnCheckInButtonClick;
         }
 
         private void OnCheckInButtonClick(object sender, RoutedEventArgs e)
@@ -46,7 +53,7 @@ namespace BlueYonder.Companion.Client.Controls
             if (Reservation == null)
                 return;
 
-            Reservation.IsCheckIn = !Reservation.IsCheckIn;
+            Reservation.IsCheckedIn = !Reservation.IsCheckedIn;
         }
     }
 }

@@ -19,9 +19,7 @@ namespace BlueYonder.Companion.Client.Helpers
         public const string Passport = "Passport";
         public const string Email = "Email";
 
-        public const string WnsChannelUri = "WnsChannelUri";
-
         public const string WeatherTaskName = "WeatherUpdateTask";
-        public const string WeatherTaskEntryPoint = "Tasks.WeatherUpdateTask";
+        public const string WeatherTaskEntryPoint = "BlueYonder.Companion.Tasks.WeatherUpdateTask";
     }
 }

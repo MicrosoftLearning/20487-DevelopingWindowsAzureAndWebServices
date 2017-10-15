@@ -8,8 +8,6 @@ using Windows.Storage;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
-    //Module 10 - Background Tasks
-    //The student will be able to create and consume background tasks.
     public class BackgroundTaskHelper
     {
         public static void RegisterBackgroundTaskForWeather()

@@ -8,7 +8,7 @@ namespace BlueYonder.Companion.Client.DataModel
 {
     public class WeatherForecast
     {
-        public double TemperatureCelcius { get; set; }
+        public double TemperatureCelsius { get; set; }
         public double TemperatureFahrenheit { get; set; }
         public WeatherCondition Condition { get; set; }
     }

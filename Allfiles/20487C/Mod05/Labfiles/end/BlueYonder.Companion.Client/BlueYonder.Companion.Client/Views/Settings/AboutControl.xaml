@@ -12,7 +12,6 @@
     <Grid Style="{StaticResource CustomSettingsPageStyle}">
         <StackPanel Margin="20">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource CustomSettingsBackButtonStyle}" />
                 <TextBlock Style="{StaticResource HeaderTextStyle}" x:Uid="AboutLabel">About</TextBlock>
             </StackPanel>
 

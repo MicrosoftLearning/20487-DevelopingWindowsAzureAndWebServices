@@ -11,7 +11,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
                         <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
                             <Image Source="{Binding Image}" Stretch="UniformToFill"/>
@@ -38,12 +38,15 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Column="2">
-                            <HyperlinkButton x:Name="PART_CheckInButton"
-                                             VerticalAlignment="Bottom" 
-                                             Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Reservation.CanCheckIn, Converter={StaticResource BoolToVisibility}}" 
-                                             Content="Check In"/>
-                            <Image Source="ms-appx:///Assets/BlueYonderGraphics/Check-icon.png" Width="50" 
-                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Reservation.IsCheckIn,Converter={StaticResource BoolToVisibility}}"/>
+                            <HyperlinkButton
+                                x:Name="PART_CheckInButton"
+                                VerticalAlignment="Bottom"
+                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Reservation.CanCheckIn, Converter={StaticResource BoolToVisibility}}"
+                                Content="Check In" />
+                            <Image
+                                Source="ms-appx:///Assets/BlueYonderGraphics/Check-icon.png"
+                                Width="50"
+                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Reservation.IsCheckedIn, Converter={StaticResource BoolToVisibility}}" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>

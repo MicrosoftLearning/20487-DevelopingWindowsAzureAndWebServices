@@ -89,6 +89,7 @@ namespace BlueYonder.Companion.Client.ViewModels
         }
 
         private readonly DataManager _data;
+        private bool _isPurchaseCommandEnabled;
 
         public PurchaseViewModel()
         {
@@ -96,8 +97,10 @@ namespace BlueYonder.Companion.Client.ViewModels
 
             this.TravelerInfo = new TravelerInfoViewModel();
 
-            PurchaseCommand = new DelegateCommand(Purchase);
+            PurchaseCommand = new DelegateCommand(Purchase, CanExecutePurchase);
             CancelCommand = new DelegateCommand(Cancel);
+
+            TogglePurchaseCommandEnabled(false);
         }
 
         public override async void Initialize(Frame frame)
@@ -108,6 +111,8 @@ namespace BlueYonder.Companion.Client.ViewModels
 
             var departureFlight = await _data.GetFlightByIdAsync(this.FlightId);
             UpdateDeparture(departureFlight);
+
+            TogglePurchaseCommandEnabled(true);
         }
 
         private bool IsValid()
@@ -122,52 +127,72 @@ namespace BlueYonder.Companion.Client.ViewModels
 
         private async void Purchase(object parameter)
         {
-            if (IsValid())
+            try
             {
-                this.TravelerInfo.Save(parameter);
-                var reservation = new Reservation()
-                {
-                    TravelerId = UserAuth.Instance.Traveler.TravelerId,
-                    ReservationDate = DateTime.Now,
-                    DepartureFlight = new FlightSchedule()
-                    {
-                        FlightInfo = new FlightInfo()
-                        {
-                            Departure = this.Depart.Departure,
-                            FlightScheduleId = this.Depart.FlightScheduleId
-                        }
-                    },
-                };
+                TogglePurchaseCommandEnabled(false);
 
-                if (this.Return != null)
+                if (IsValid())
                 {
-                    reservation.ReturnFlight = new FlightSchedule()
+                    this.TravelerInfo.Save(parameter);
+                    var reservation = new Reservation()
                     {
-                        FlightInfo = new FlightInfo()
+                        TravelerId = UserAuth.Instance.Traveler.TravelerId,
+                        ReservationDate = DateTime.Now,
+                        DepartureFlight = new FlightSchedule()
                         {
-                            Departure = this.Return.Departure,
-                            FlightScheduleId = this.Return.FlightScheduleId
-                        }
+                            FlightInfo = new FlightInfo()
+                            {
+                                Departure = this.Depart.Departure,
+                                FlightScheduleId = this.Depart.FlightScheduleId
+                            }
+                        },
                     };
+
+                    if (this.Return != null)
+                    {
+                        reservation.ReturnFlight = new FlightSchedule()
+                        {
+                            FlightInfo = new FlightInfo()
+                            {
+                                Departure = this.Return.Departure,
+                                FlightScheduleId = this.Return.FlightScheduleId
+                            }
+                        };
+                    }
+
+                    var response = await _data.CreateNewReservationAsync(reservation);
+                    if (response != null)
+                    {
+                        CacheManager.Invalidate(CacheType.Categories);
+                        CacheManager.Invalidate(CacheType.Reservations);
+
+                        var msg = new Windows.UI.Popups.MessageDialog(ResourceHelper.ResourceLoader.GetString("FlightPurchaseCompleted"));
+                        await msg.ShowAsync();
+                    }
+
+                    this.Frame.Navigate(typeof (TripListPage), true);
                 }
-
-                var response = await _data.CreateNewReservationAsync(reservation);
-                if (response != null)
+                else
                 {
-                    CacheManager.Invalidate(CacheType.Categories);
-                    CacheManager.Invalidate(CacheType.Reservations);
-
-                    var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("FlightPurchaseCompleted"));
+                    var msg = new Windows.UI.Popups.MessageDialog(ResourceHelper.ResourceLoader.GetString("FlightPurchaseMissingFields"));
                     await msg.ShowAsync();
                 }
-
-                this.Frame.Navigate(typeof(TripListPage), true);
             }
-            else
+            finally
             {
-                var msg = new Windows.UI.Popups.MessageDialog(Accessories.resourceLoader.GetString("FlightPurchaseMissingFields"));
-                await msg.ShowAsync();
+                TogglePurchaseCommandEnabled(true);
             }
+        }
+
+        private void TogglePurchaseCommandEnabled(bool enabled)
+        {
+            _isPurchaseCommandEnabled = enabled;
+            PurchaseCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool CanExecutePurchase(object obj)
+        {
+            return _isPurchaseCommandEnabled;
         }
 
         private void UpdateDeparture(Flight flight)

@@ -17,9 +17,9 @@ namespace BlueYonder.Companion.Client.DataModel
         public override string ToString()
         {
             return string.Format("{0}: {1} {2}: {3} {4}: {5}", 
-                Accessories.resourceLoader.GetString("Departure"), this.Departure,
-                Accessories.resourceLoader.GetString("Arrival"), this.Arrival,
-                Accessories.resourceLoader.GetString("Duration"), this.Duration);
+                ResourceHelper.ResourceLoader.GetString("Departure"), this.Departure,
+                ResourceHelper.ResourceLoader.GetString("Arrival"), this.Arrival,
+                ResourceHelper.ResourceLoader.GetString("Duration"), this.Duration);
         }
     }
 }

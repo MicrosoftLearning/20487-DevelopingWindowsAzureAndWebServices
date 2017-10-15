@@ -16,14 +16,14 @@ namespace BlueYonder.Companion.Client.DataModel
         
         public CategoryType Type { get; set; }
 
-        private bool _checkIn;
-        public bool IsCheckIn
+        private bool _isCheckedIn;
+        public bool IsCheckedIn
         {
-            get { return this._checkIn; }
+            get { return this._isCheckedIn; }
             set
             {
-                this._checkIn = value;
-                if (this.Type == CategoryType.CurrentTrip && !this.IsCheckIn)
+                this._isCheckedIn = value;
+                if (this.Type == CategoryType.CurrentTrip && !this.IsCheckedIn)
                     this.CanCheckIn = true;
                 else
                     this.CanCheckIn = true;
@@ -33,7 +33,7 @@ namespace BlueYonder.Companion.Client.DataModel
         private bool _canCheckIn;
         public bool CanCheckIn
         {
-            get { return this.Type == CategoryType.CurrentTrip && !this.IsCheckIn; }
+            get { return this.Type == CategoryType.CurrentTrip && !this.IsCheckedIn; }
             set { this._canCheckIn = value; }
         }
 

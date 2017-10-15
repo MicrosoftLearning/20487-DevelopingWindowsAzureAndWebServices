@@ -72,7 +72,14 @@ namespace BlueYonder.Companion.Client.ViewModels
             get { return this._message; }
             private set { this.SetProperty(ref this._message, value); }
         }
-    
+
+        private string _frequentFlyerMessage;
+        public string FrequentFlyerMessage
+        {
+            get { return this._frequentFlyerMessage; }
+            private set { this.SetProperty(ref this._frequentFlyerMessage, value); }
+        }
+
         public TravelerInfoViewModel()
         {
             _settings = new Settings(SettingsType.Local);
@@ -84,7 +91,6 @@ namespace BlueYonder.Companion.Client.ViewModels
 
         private void LoadFromLocalSettings()
         {
-            //Module 13 - Securing Windows 8 App Data
             var travelerIdString = _settings.Get(Constants.TravelerId);
             int travelerId;
             int.TryParse(travelerIdString, out travelerId);
@@ -96,8 +102,20 @@ namespace BlueYonder.Companion.Client.ViewModels
             var homeAddress = _settings.Get(Constants.HomeAddress);
             var email = _settings.Get(Constants.Email);
 
-            LoadTravelerInfo(travelerId, firstName, lastName, passportNumber, mobileNumber, homeAddress, email);          
-        }      
+            LoadTravelerInfo(travelerId, firstName, lastName, passportNumber, mobileNumber, homeAddress, email);
+
+            if (travelerId > 0)
+            {
+                SetFrequentFlyerMiles(travelerId);
+            }
+        }
+
+        private async void SetFrequentFlyerMiles(int travelerId)
+        {
+            var frequentFlyerProvider = new FrequentFlyerService.FrequentFlyerProvider(Addresses.GetFrequentFlyerMilesUri);
+            var frequentFlyerMiles = await frequentFlyerProvider.GetFrequentFlyerMilesAsync(travelerId);
+            this.FrequentFlyerMessage = string.Format(ResourceHelper.ResourceLoader.GetString("FrequentFlyerMiles"), frequentFlyerMiles);
+        }
 
         private void Reset(object parameter)
         {
@@ -109,12 +127,11 @@ namespace BlueYonder.Companion.Client.ViewModels
             StoreInLocalSettings();
             StoreOnServer();
 
-            this.Message = Accessories.resourceLoader.GetString("TravelerInformationSaved");
+            this.Message = ResourceHelper.ResourceLoader.GetString("TravelerInformationSaved");
         }
 
         private void StoreInLocalSettings()
         {
-            //Module 13 - Securing Windows 8 App Data
             _settings.Add(Constants.TravelerId, this.TravelerId.ToString());
             _settings.Add(Constants.FirstName, this.FirstName);
             _settings.Add(Constants.LastName, this.LastName);
@@ -137,8 +154,15 @@ namespace BlueYonder.Companion.Client.ViewModels
                 Email = this.Email
             };
 
-            var data = new DataManager();
-            await data.UpdateTravelerAsync(traveler);
+            try
+            {
+                var data = new DataManager();
+                await data.UpdateTravelerAsync(traveler);
+            }
+            catch
+            {
+                // The server could not be reached or the authentication failed
+            }
         }
 
         private void LoadTravelerInfo(int travelerId, string firstName, string lastName, string passportNumber, string mobileNumber, string homeAddress, string email)

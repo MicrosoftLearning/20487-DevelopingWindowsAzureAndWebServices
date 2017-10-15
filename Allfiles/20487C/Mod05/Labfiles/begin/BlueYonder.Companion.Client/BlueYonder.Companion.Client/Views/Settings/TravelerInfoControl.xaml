@@ -21,7 +21,6 @@
 
         <Border Background="#696969" Height="80">
             <StackPanel Orientation="Horizontal" Margin="40,0,0,13" VerticalAlignment="Bottom">
-                <Button x:Name="backButton" Width="34" Height="32" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource CustomSettingsBackButtonStyle}" Margin="0" VerticalAlignment="Bottom"/>
                 <TextBlock Text="Traveler" x:Uid="TravelerLabel" Style="{StaticResource HeaderTextStyle}" FontSize="26" Margin="30,-18,0,0" />
                 <StackPanel.Transitions>
                     <TransitionCollection>
@@ -67,6 +66,11 @@
                 <TextBlock Style="{StaticResource CustomTextBlockStyle}" VerticalAlignment="Center" x:Uid="EmailLabel">Email:</TextBlock>
                 <TextBox Style="{StaticResource CustomTextBoxStyle}" Width="210" VerticalAlignment="Center" Text="{Binding Email, Mode=TwoWay}"/>
             </StackPanel>
+
+            <StackPanel Margin="0,10,0,0">
+                <TextBlock Style="{StaticResource BodyTextStyle}" Text="{Binding FrequentFlyerMessage}" Margin="0,0,0,10" HorizontalAlignment="Center" />
+            </StackPanel>
+
             <Grid>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ResetCommand}" Margin="0,10,0,0" x:Uid="ResetButton">Reset</Button>
                 <Button HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding SaveCommand}" Margin="0,10,0,0" x:Uid="SaveButton">Save</Button>

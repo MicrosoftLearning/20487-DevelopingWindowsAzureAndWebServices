@@ -1,17 +1,30 @@
-﻿using BlueYonder.Companion.Client.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using BlueYonder.Companion.Client.Common;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
     public class GeopositionDataFetcher : DataFetcher
     {
+        private static GeopositionDataFetcher _instance;
+        public static GeopositionDataFetcher Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new GeopositionDataFetcher();
+                }
+                return _instance;
+            }
+        }
+
         private readonly Geolocator _geolocator;
-        private Geoposition _userPosition;
+        private Geoposition _geoposition;
 
         private GeopositionDataFetcher()
         {
@@ -22,27 +35,17 @@ namespace BlueYonder.Companion.Client.Helpers
         {
             if (RequireRefresh)
             {
-                _userPosition= await _geolocator.GetGeopositionAsync();
-                LastRefreshDateTime = DateTime.Now;
-                return _userPosition;
-            }
-            else
-            {
-                return _userPosition;
-            }
-        }
-
-        private static GeopositionDataFetcher instance;
-        public static GeopositionDataFetcher Instance
-        {
-            get
-            {
-                if (instance == null)
+                try
                 {
-                    instance = new GeopositionDataFetcher();
+                    _geoposition = await _geolocator.GetGeopositionAsync();
                 }
-                return instance;
+                catch
+                {
+                    // Probably an HRESULT E_FAIL exception of unclear origin
+                }
+                LastRefreshDateTime = DateTime.Now;
             }
-        }
+            return _geoposition;
+        } 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.ApplicationModel.Background;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
@@ -14,9 +15,30 @@ namespace BlueYonder.Companion.Client.Helpers
                 await ReservationDataFetcher.Instance.GetCategoriesAsync(false);
             }
 
-            var wnsManager = new WnsManager();
-            await wnsManager.Register();
+            try
+            {
+                var wnsManager = new WnsManager();
+                await wnsManager.Register();
+            }
+            catch (Exception e)
+            {
+                
+            }
 
+            var transferManager = new TransferManager();
+            await transferManager.ResumeDownloadsAsync();
+
+            await BackgroundExecutionManager.RequestAccessAsync();
+            BackgroundTaskHelper.RegisterBackgroundTaskForWeather();
+
+           // TODO: Module 12: Exercise 1: Task 2.3: Load the license data
+            await LicenseManager.Instance.LoadLicenseData();
+
+            FireFinishedEvent();
+        }
+
+        private void FireFinishedEvent()
+        {
             var handler = Finished;
             if (handler != null)
             {
