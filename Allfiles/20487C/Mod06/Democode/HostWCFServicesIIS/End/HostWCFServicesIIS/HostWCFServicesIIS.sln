@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyIISService", "MyIISService\MyIISService.csproj", "{0AFDB785-E78E-407A-A194-67CA5AAD42F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AFDB785-E78E-407A-A194-67CA5AAD42F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AFDB785-E78E-407A-A194-67CA5AAD42F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AFDB785-E78E-407A-A194-67CA5AAD42F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AFDB785-E78E-407A-A194-67CA5AAD42F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EC31EF5-DD7D-44C1-A325-87439DA2D3A8}
+	EndGlobalSection
+EndGlobal
