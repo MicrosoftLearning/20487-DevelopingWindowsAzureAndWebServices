@@ -16,7 +16,7 @@ namespace BlueYonder.Companion.Client.Helpers
         private readonly DataManager _data;
         public EventHandler<LocationsFetchedEventArgs> LocationsFetched;
         private string _lastQuery;
-        private IEnumerable<LocationDTO> _lastQueryResults;
+        private IEnumerable<Location> _lastQueryResults;
         private bool _isFetching;
 
         private LocationsDataFetcher()
@@ -24,14 +24,14 @@ namespace BlueYonder.Companion.Client.Helpers
             _data = new DataManager();
         }
 
-        public async Task<IEnumerable<LocationDTO>> FetchLocationsAsync(string query, bool force)
+        public async Task<IEnumerable<Location>> FetchLocationsAsync(string query, bool force)
         {
             while (_isFetching)
             {
                 await Task.Delay(100);
             }
 
-            LocationDTO[] locations;
+            Location[] locations;
             try
             {
                 _isFetching = true;
@@ -41,7 +41,7 @@ namespace BlueYonder.Companion.Client.Helpers
                     return this._lastQueryResults;
                 }
 
-                locations = (await _data.GetLocationsAsync(query)).ToArray();
+                locations = (await _data.GetLocationsAsync(query)).Select(loc => loc.ToObject()).ToArray();
 
                 this._lastQuery = query;
                 this._lastQueryResults = locations;
@@ -52,10 +52,6 @@ namespace BlueYonder.Companion.Client.Helpers
                 {
                     handler(this, new LocationsFetchedEventArgs(query, locations));
                 }
-            }
-            catch (Exception e)
-            {
-                locations = new LocationDTO[0];
             }
             finally
             {

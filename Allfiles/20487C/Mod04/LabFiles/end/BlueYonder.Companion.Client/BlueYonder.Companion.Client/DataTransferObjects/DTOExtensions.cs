@@ -4,6 +4,18 @@ namespace BlueYonder.Companion.Client.DataTransferObjects
 {
     public static class DTOExtensions
     {
+        public static Location ToObject(this LocationDTO dto)
+        {
+            return new Location()
+            {
+                LocationId = dto.LocationId,
+                Country = dto.Country,
+                State = dto.State,
+                City = dto.City,
+                CountryCode = dto.CountryCode,
+                TimeZoneId = dto.TimeZoneId
+            };
+        }
 
         public static Traveler ToObject(this TravelerDTO dto)
         {

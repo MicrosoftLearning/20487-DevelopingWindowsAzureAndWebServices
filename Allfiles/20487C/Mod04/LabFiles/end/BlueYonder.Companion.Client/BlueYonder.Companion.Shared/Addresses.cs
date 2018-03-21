@@ -1,10 +1,17 @@
-﻿namespace BlueYonder.Companion.Shared
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BlueYonder.Companion.Shared
 {
     public sealed class Addresses
     {
         public static string BaseUri
         {
-            get { return "http://localhost:10534/api/"; }
+            // TODO: Module 4: Exercise 3: Task 2.7: Enter BaseUri
+            get { return "http://localhost:9239/"; }
         }
 
         public static string GetLocationsUri

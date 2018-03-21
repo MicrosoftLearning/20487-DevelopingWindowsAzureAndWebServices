@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlueYonder.Companion.Client.Helpers;
 using BlueYonder.Companion.Client.Common;
 using Windows.Devices.Geolocation;
+using BlueYonder.Companion.Client.DataTransferObjects;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
@@ -40,7 +41,7 @@ namespace BlueYonder.Companion.Client.Helpers
                     return this._lastQueryResults;
                 }
 
-                locations = (await _data.GetLocationsAsync(query)).ToArray();
+                locations = (await _data.GetLocationsAsync(query)).Select(loc => loc.ToObject()).ToArray();
 
                 this._lastQuery = query;
                 this._lastQueryResults = locations;

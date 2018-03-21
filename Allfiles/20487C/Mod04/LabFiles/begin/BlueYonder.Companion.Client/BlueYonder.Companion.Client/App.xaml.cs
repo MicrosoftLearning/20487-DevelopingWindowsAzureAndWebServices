@@ -24,6 +24,9 @@ using BlueYonder.Companion.Client.Views;
 
 namespace BlueYonder.Companion.Client
 {
+    /// <summary>
+    /// Provides application-specific behavior to supplement the default Application class.
+    /// </summary>
     sealed partial class App : Application
     {
         private Frame _rootFrame;

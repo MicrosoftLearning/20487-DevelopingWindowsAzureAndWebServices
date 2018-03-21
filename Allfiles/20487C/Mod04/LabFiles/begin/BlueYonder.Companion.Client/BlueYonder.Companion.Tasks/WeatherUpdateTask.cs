@@ -12,6 +12,7 @@ using Windows.System.Threading;
 using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications;
 
+
 namespace BlueYonder.Companion.Tasks
 {
     public sealed class WeatherUpdateTask : IBackgroundTask

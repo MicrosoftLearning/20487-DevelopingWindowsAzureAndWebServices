@@ -12,7 +12,6 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using File = BlueYonder.Companion.Client.DataModel.File;
-using System.Diagnostics;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
