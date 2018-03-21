@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BlueYonder.Companion.Client"
-    xmlns:Common="using:BlueYonder.Companion.Client.Common">
+    xmlns:Common="using:BlueYonder.Companion.Client.Common"
+    RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

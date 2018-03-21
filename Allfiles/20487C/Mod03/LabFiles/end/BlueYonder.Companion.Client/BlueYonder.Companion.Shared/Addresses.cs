@@ -1,4 +1,10 @@
-﻿namespace BlueYonder.Companion.Shared
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BlueYonder.Companion.Shared
 {
     public sealed class Addresses
     {
