@@ -89,11 +89,11 @@ namespace BlueYonder.Companion.Client.Helpers
             {
                 if (geocoordinate.Latitude == 47.609722 && geocoordinate.Longitude == -122.333056)
                 {
-                    return CreateLocation(1, "Seattle", "United States", "Washington");
+                    return CreateLocation(2, "Seattle", "United States", "Washington");
                 }
                 else if (geocoordinate.Latitude == 48.8567 && geocoordinate.Longitude == 2.3508)
                 {
-                    return CreateLocation(2, "Paris", "France");
+                    return CreateLocation(1, "Paris", "France");
                 }
                 else if (geocoordinate.Latitude == 41.9 && geocoordinate.Longitude == 12.5)
                 {
@@ -106,7 +106,7 @@ namespace BlueYonder.Companion.Client.Helpers
             }
 
             // For the purposes of these labs, always default to Seattle
-            return CreateLocation(1, "Seattle", "United States", "Washington");
+            return CreateLocation(2, "Seattle", "United States", "Washington");
         }
 
         private static Location CreateLocation(int locationId, string city, string country, string state = null)

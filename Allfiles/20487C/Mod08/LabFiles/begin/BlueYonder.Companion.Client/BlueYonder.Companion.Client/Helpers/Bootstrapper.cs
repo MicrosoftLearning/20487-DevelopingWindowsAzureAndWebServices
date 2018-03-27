@@ -18,7 +18,7 @@ namespace BlueYonder.Companion.Client.Helpers
             try
             {
                 var wnsManager = new WnsManager();
-                await wnsManager.Register();
+                await wnsManager.Register(UserAuth.Instance);
             }
             catch (Exception e)
             {

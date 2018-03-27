@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.PushNotifications;
 using Windows.Security.Cryptography;
+using Windows.UI.Notifications;
 
 namespace BlueYonder.Companion.Client.Helpers
 {
@@ -23,26 +24,32 @@ namespace BlueYonder.Companion.Client.Helpers
             return CryptographicBuffer.EncodeToBase64String(channelBuffer);
         }
 
-        public async Task<bool> Register()
+        public async Task<bool> Register(UserAuth userAuth)
         {
             if (!NetworkManager.IsNetworkAvailable)
             {
                 return false;
             }
-
+            
             // Create a push notifications channel
             var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
-            var notificationHubConnectionString = "{NotificationHubConnectionString}";
-
-            var hub = new NotificationHub("blueyonder08Hub", notificationHubConnectionString);
-            var result = await hub.RegisterNativeAsync(channel.Uri);
-            return result.RegistrationId != null;
+            channel.PushNotificationReceived += Channel_PushNotificationReceived;
+            var hub = new NotificationHub("BlueYonderHub", "Endpoint=sb://blueyonderhub.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1Z0s1slYMa8BkxtifP3vqystnRnnM5ERiYVtqK9Hmfw=");
+            var result = await hub.RegisterNativeAsync(channel.Uri, new string[] {
+                $"user-{userAuth.Traveler.TravelerId}"
+            });
+            return result.ChannelUri != null;
             // Encode the channel uri
             //var encodedChannelUri = EncodeChannelUri(channel.Uri);
 
             // Send the encoded channel uri to the server
-            //var success = await SendChannelToServer(encodedChannelUri);
+            //var success = await SendChannelToServer(result.ChannelUri);
             //return success;
+        }
+
+        private void Channel_PushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
+        {
+            ToastNotificationManager.CreateToastNotifier().Show(args.ToastNotification);
         }
     }
 }
