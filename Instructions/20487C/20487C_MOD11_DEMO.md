@@ -55,13 +55,19 @@ Wherever you see a path to file starting with **[repository root]**, replace it 
    ```cs
         Notifications = new OpenIdConnectAuthenticationNotifications
         {
-            SecurityTokenValidated = OnTokenValidated
+            SecurityTokenValidated = OnTokenValidated()
         }
    ```
    > **Note :** If there is any syntax error saying that Comma Operator is expected. Please put Comma operator after **postLogoutRedirectUri**.
 35.	At the end of the **ConfigureAuth** method, add the following code:
    ```cs
-        private async Task OnTokenValidated(SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> context) => await Task.FromResult(0);
+        private  Func<SecurityTokenValidatedNotification<Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage, OpenIdConnectAuthenticationOptions>, Task> OnTokenValidated()
+        {
+            return (context) =>
+            {
+                return Task.FromResult(0);
+            };
+        }
    ```
 36.	Put a breakpoint in the **OnTokenValidated** method that you just added.
 37.	To debug the application, press F5. If any security warning appear or any **Microsoft Visual Studio** dialog box asks to trust 		the certificate, click **Yes**.
