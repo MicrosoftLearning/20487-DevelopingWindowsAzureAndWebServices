@@ -21,6 +21,7 @@ namespace BlobStorage.Web.Controllers
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             result.Content = new StreamContent(blockBlob.OpenRead());
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            result.Content.Headers.Add("Content-Disposition", "attachment; filename=" + blobName);
             return result;
         }      
     }
