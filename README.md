@@ -11,14 +11,13 @@ We hope that this brings a sense of collaboration to the labs like we've never h
 ## Where will the files be?
 The files are available in a GitHub repo at https://github.com/MicrosoftLearning/20487-DevelopingWindowsAzureAndWebServices
 
-##How should I use these files relative to the released MOC files?
+## How should I use these files relative to the released MOC files?
 - These open files are designed to be used by MCTs to prepare for the upcoming release of the 20487C. They are in GitHub as a central repository so MCTs and course authors can have a shared source for the latest files.
 - It will be recommended that for every delivery of 20487C, trainers check GitHub for any changes that may have been made to support the latest Azure services, and get the latest files for their delivery.
 
-##How do I contribute?
+## How do I contribute?
 - Any MCTs can submit a pull request to the code or content in the GitHub repo, Microsoft and the course author will triage and include changes as needed.  
 - You can submit bugs, changes, improvements, ideas.  Find a new Azure feature before we have?  Submit a new demo!
 
-##What about changes to the student handbook?
-The student handbook will be released in calendar year 2016 and will be updated on a regular basis through normal MOC release channels as needed.
-
+## What about changes to the student handbook?
+The student handbook will be released in the calendar year 2016 and will be updated on a regular basis through normal MOC release channels as needed.
